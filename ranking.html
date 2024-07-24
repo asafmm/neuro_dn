@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First impression</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="face_trust_style.css">
+    <!-- Local copy -->
+    <script src="code/jspsych/jspsych.js"></script>
+    <script src="code/jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="code/jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="code/jspsych/plugin-preload.js"></script>
+    <script src="code/jspsych/plugin-survey-likert.js"></script>
+    <script src="code/jspsych/plugin-html-button-response.js"></script>
+    <script src="code/jspsych/extension-mouse-tracking.js"></script>
+    <script src="code/jspsych/extension-record-video.js"></script>
+    <script src="code/jspsych/extension-webgazer.js"></script>
+    <script src="code/jspsych/plugin-html-slider-response.js"></script>
+    <script src="code/jspsych/plugin-survey.js"></script>
+
+    <script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
+
+    <link href="code/jspsych/jspsych.css" rel="stylesheet" type="text/css" /> 
+  </head>
+  <body></body>
+  <script>
+    var jsPsych = initJsPsych({
+      on_start: function(){
+        console.log('querying content-wrapper')
+        document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", 
+        function(ev){
+          ev.preventDefault(); 
+          return false;
+        });
+      }
+    });
+
+    function random_integer(min, max){
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Initialize timeline
+    var timeline = [];
+    
+    var sub_id = '';
+    while(sub_id==''){
+      var sub_id = prompt('Please enter your Prolific ID:');
+    } 
+
+    var today = new Date()
+    var date_string = today.toLocaleDateString("en-GB").replace(/\//g, '-') // creates date string with dd-mm-yyyy
+    const INITIAL_FIXATION = 1000
+    const SCALE_START = -5;
+    const MAX_RESPONSE = 10;
+    const WTP_BAR_SIZE = 800;
+    const SCLAESIZE = 900;
+    const FIXATION_TIME = 500;
+    const JITTER = 150;
+    const LABELS = ['-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'];
+
+    jsPsych.data.addProperties({subject_id: sub_id})
+
+    /* init connection with pavlovia.org */
+    var pavlovia_init = {
+      type: jsPsychPavlovia,
+      command: "init"
+    };
+    timeline.push(pavlovia_init);
+    
+    var preload = {
+      type: jsPsychPreload,
+      images: [ 'stimuli/white_male_faces/CM100_1.jpg',
+                'stimuli/white_male_faces/CM10_1.jpg',
+                'stimuli/white_male_faces/CM11_1.jpg',
+                'stimuli/white_male_faces/CM12_1.jpg',
+                'stimuli/white_male_faces/CM13_1.jpg',
+                'stimuli/white_male_faces/CM14_1.jpg',
+                'stimuli/white_male_faces/CM15_1.jpg',
+                'stimuli/white_male_faces/CM16_1.jpg',
+                'stimuli/white_male_faces/CM17_1.jpg',
+                'stimuli/white_male_faces/CM18_1.jpg',
+                'stimuli/white_male_faces/CM19_1.jpg',
+                'stimuli/white_male_faces/CM1_1.jpg',
+                'stimuli/white_male_faces/CM20_1.jpg',
+                'stimuli/white_male_faces/CM21_1.jpg',
+                'stimuli/white_male_faces/CM22_1.jpg',
+                'stimuli/white_male_faces/CM23_1.jpg',
+                'stimuli/white_male_faces/CM24_1.jpg',
+                'stimuli/white_male_faces/CM25_1.jpg',
+                'stimuli/white_male_faces/CM26_1.jpg',
+                'stimuli/white_male_faces/CM27_1.jpg',
+                'stimuli/white_male_faces/CM28_1.jpg',
+                'stimuli/white_male_faces/CM29_1.jpg',
+                'stimuli/white_male_faces/CM2_1.jpg',
+                'stimuli/white_male_faces/CM30_1.jpg',
+                'stimuli/white_male_faces/CM31_1.jpg',
+                'stimuli/white_male_faces/CM32_1.jpg',
+                'stimuli/white_male_faces/CM33_1.jpg',
+                'stimuli/white_male_faces/CM34_1.jpg',
+                'stimuli/white_male_faces/CM35_1.jpg',
+                'stimuli/white_male_faces/CM36_1.jpg',
+                'stimuli/white_male_faces/CM37_1.jpg',
+                'stimuli/white_male_faces/CM38_1.jpg',
+                'stimuli/white_male_faces/CM39_1.jpg',
+                'stimuli/white_male_faces/CM3_1.jpg',
+                'stimuli/white_male_faces/CM40_1.jpg',
+                'stimuli/white_male_faces/CM41_1.jpg',
+                'stimuli/white_male_faces/CM42_1.jpg',
+                'stimuli/white_male_faces/CM43_1.jpg',
+                'stimuli/white_male_faces/CM44_1.jpg',
+                'stimuli/white_male_faces/CM45_1.jpg',
+                'stimuli/white_male_faces/CM46_1.jpg',
+                'stimuli/white_male_faces/CM47_1.jpg',
+                'stimuli/white_male_faces/CM48_1.jpg',
+                'stimuli/white_male_faces/CM49_1.jpg',
+                'stimuli/white_male_faces/CM4_1.jpg',
+                'stimuli/white_male_faces/CM50_1.jpg',
+                'stimuli/white_male_faces/CM51_1.jpg',
+                'stimuli/white_male_faces/CM52_1.jpg',
+                'stimuli/white_male_faces/CM53_1.jpg',
+                'stimuli/white_male_faces/CM54_1.jpg',
+                'stimuli/white_male_faces/CM55_1.jpg',
+                'stimuli/white_male_faces/CM56_1.jpg',
+                'stimuli/white_male_faces/CM57_1.jpg',
+                'stimuli/white_male_faces/CM58_1.jpg',
+                'stimuli/white_male_faces/CM59_1.jpg',
+                'stimuli/white_male_faces/CM5_1.jpg',
+                'stimuli/white_male_faces/CM60_1.jpg',
+                'stimuli/white_male_faces/CM61_1.jpg',
+                'stimuli/white_male_faces/CM62_1.jpg',
+                'stimuli/white_male_faces/CM63_1.jpg',
+                'stimuli/white_male_faces/CM64_1.jpg',
+                'stimuli/white_male_faces/CM65_1.jpg',
+                'stimuli/white_male_faces/CM66_1.jpg',
+                'stimuli/white_male_faces/CM67_1.jpg',
+                'stimuli/white_male_faces/CM68_1.jpg',
+                'stimuli/white_male_faces/CM69_1.jpg',
+                'stimuli/white_male_faces/CM6_1.jpg',
+                'stimuli/white_male_faces/CM70_1.jpg',
+                'stimuli/white_male_faces/CM71_1.jpg',
+                'stimuli/white_male_faces/CM72_1.jpg',
+                'stimuli/white_male_faces/CM73_1.jpg',
+                'stimuli/white_male_faces/CM74_1.jpg',
+                'stimuli/white_male_faces/CM75_1.jpg',
+                'stimuli/white_male_faces/CM76_1.jpg',
+                'stimuli/white_male_faces/CM77_1.jpg',
+                'stimuli/white_male_faces/CM78_1.jpg',
+                'stimuli/white_male_faces/CM79_1.jpg',
+                'stimuli/white_male_faces/CM7_1.jpg',
+                'stimuli/white_male_faces/CM80_1.jpg',
+                'stimuli/white_male_faces/CM81_1.jpg',
+                'stimuli/white_male_faces/CM82_1.jpg',
+                'stimuli/white_male_faces/CM83_1.jpg',
+                'stimuli/white_male_faces/CM84_1.jpg',
+                'stimuli/white_male_faces/CM85_1.jpg',
+                'stimuli/white_male_faces/CM86_1.jpg',
+                'stimuli/white_male_faces/CM87_1.jpg',
+                'stimuli/white_male_faces/CM88_1.jpg',
+                'stimuli/white_male_faces/CM89_1.jpg',
+                'stimuli/white_male_faces/CM8_1.jpg',
+                'stimuli/white_male_faces/CM90_1.jpg',
+                'stimuli/white_male_faces/CM91_1.jpg',
+                'stimuli/white_male_faces/CM92_1.jpg',
+                'stimuli/white_male_faces/CM93_1.jpg',
+                'stimuli/white_male_faces/CM94_1.jpg',
+                'stimuli/white_male_faces/CM95_1.jpg',
+                'stimuli/white_male_faces/CM96_1.jpg',
+                'stimuli/white_male_faces/CM97_1.jpg',
+                'stimuli/white_male_faces/CM98_1.jpg',
+                'stimuli/white_male_faces/CM99_1.jpg',
+                'stimuli/white_male_faces/CM9_1.jpg']
+    }
+    timeline.push(preload);
+
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        on_start: function(){
+        document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", function(ev){ev.preventDefault(); return false;});
+        },
+        stimulus: `
+          <h1>Welcome to the task!</h1>
+          <p>This is a task of first impressions.
+          <p>In this task, you will be asked to evaluate different people you see for the first time.
+          <br>Try to react based on your gut feelings.
+          <br><br>Please click to continue.</p>`,
+        choices: [' '],
+        data: {part: 'example'},
+        post_trial_gap: 250, 
+        allow_click: true
+    };
+    timeline.push(welcome);
+
+    var fixation = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '<p style="text-align: center;">+</p>',
+          choices: 'NO_KEYS',
+          data: {part: 'fixation'},
+          trial_duration: function(){
+            plus_minus = 1 + -2 * (Math.random()>0.5)
+            random_jitter = Math.random()*JITTER
+            return FIXATION_TIME + plus_minus * random_jitter}
+    }
+
+    var example_part1 = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: `
+        <p style="font-size: 32px;">Let's start with an example:
+        <br>Look at the face below, and rate how trustworthy is this person on a scale from -5 to 5.
+        <br>Imagine trusting this person with all your money, or with your life, and then base your rating on this impression.</p>
+        
+        
+        <span><img src='stimuli/white_male_faces/CM1_1.jpg', width="250"></span>`
+        ,
+        choices: [' '],
+        data: {part: 'example'},
+        require_movement: false,
+        slider_start: 5,
+        max: MAX_RESPONSE,
+        slider_width: WTP_BAR_SIZE,
+        labels: LABELS,
+        scale_start: SCALE_START,
+        post_trial_gap: 250
+    };
+    timeline.push(example_part1);
+
+    var example_response = 0;
+    // Post-example 1
+    var post_example1 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        example_response = jsPsych.data.get().last(1).select('response').values;
+        example_response = parseInt(example_response);
+        return `<p>Nice work!
+                <br>You ranked this person's trustworthniess as ${example_response} on a scale from -5 to 5.
+                <br>Sounds right?
+                <br><br>Click to continue.</p>`
+      },
+      choices: [' '],
+      data: {part: 'example'},
+      allow_click: true,
+      post_trial_gap: 250
+    };
+    timeline.push(post_example1);
+
+    var pre_task = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p>We will now begin the task.
+          <br>You will see faces, one after the other, and you are asked to rank their trustworthiness.
+          <br>Try to react based on your initial gut feeling.
+          <br><br>This should take between 5-10 minutes. 
+          <br>Please complete the task in one sitting.
+          <br><br>Click to start the task.</p>`
+      },
+      choices: [' '],
+      data: {part: 'manual_scan_wait'},
+      allow_click: true,
+      post_trial_gap: 250
+    };
+    timeline.push(pre_task);
+
+    var trial = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: function(){
+          return `<p style="text-align: center">How trustworthy is this person?</p>
+          <span><img src='${jsPsych.timelineVariable("face")}', width="250"></span>`
+        }
+        ,
+        data: {part: 'task',
+               face: jsPsych.timelineVariable("face")},
+        require_movement: false,
+        slider_start: 5,
+        max: MAX_RESPONSE,
+        slider_width: WTP_BAR_SIZE,
+        labels: LABELS,
+        scale_start: SCALE_START
+    };
+    
+    var real_task = {
+      timeline: [trial, fixation],
+      timeline_variables: [{face: 'stimuli/white_male_faces/CM100_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM10_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM11_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM12_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM13_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM14_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM15_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM16_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM17_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM18_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM19_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM1_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM20_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM21_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM22_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM23_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM24_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM25_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM26_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM27_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM28_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM29_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM2_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM30_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM31_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM32_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM33_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM34_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM35_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM36_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM37_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM38_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM39_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM3_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM40_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM41_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM42_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM43_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM44_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM45_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM46_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM47_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM48_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM49_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM4_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM50_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM51_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM52_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM53_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM54_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM55_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM56_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM57_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM58_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM59_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM5_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM60_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM61_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM62_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM63_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM64_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM65_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM66_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM67_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM68_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM69_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM6_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM70_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM71_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM72_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM73_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM74_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM75_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM76_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM77_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM78_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM79_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM7_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM80_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM81_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM82_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM83_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM84_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM85_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM86_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM87_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM88_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM89_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM8_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM90_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM91_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM92_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM93_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM94_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM95_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM96_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM97_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM98_1.jpg'},
+                          {face: 'stimuli/white_male_faces/CM99_1.jpg'},
+                {face: 'stimuli/white_male_faces/CM9_1.jpg'}],
+      
+      randomize_order: true
+    };
+    timeline.push(fixation);
+    timeline.push(real_task);
+    
+        /* finish connection with pavlovia.org */
+    var pavlovia_finish = {
+      type: jsPsychPavlovia,
+      command: "finish"
+      };
+    timeline.push(pavlovia_finish);
+
+    var finish_screen = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p>Well done! You finished the task.
+              <br>Thank you for your participation!
+              <br><br>Copy this completion code and paste it in Prolific to complete the study:</p>
+              <p style="text-align: center;">C1OQM82T</p>`
+      },
+      choices: [' '],
+      data: {part: 'manual_scan_wait'},
+      post_trial_gap: 0
+    };
+    timeline.push(finish_screen);
+
+
+
+
+    jsPsych.run(timeline);
+  </script>
+</html>

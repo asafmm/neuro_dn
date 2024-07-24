@@ -1,0 +1,129 @@
+body {
+    background-color: #ffffff;
+}
+h1 {
+    font-size: 50px;
+    text-align: left;
+    direction: ltr;
+}
+/* h1 {
+    font-size: 50px;
+    text-align: left;
+    direction: ltr;
+} */
+h1.rtl{
+    direction: ltr;
+    max-width: 80%;
+}
+p {
+    text-align: left;
+    line-height: 40px;
+    margin-bottom: 28px;
+    font-size: 25px;    
+    direction: ltr;
+}
+/* p {
+    text-align: left;
+    line-height: 43px;
+    margin-bottom: 28px;
+    font-size: 30px;    
+    direction: ltr;
+} */
+p.rtl{
+    direction: ltr;
+    max-width: 80%;
+}
+.jspsych-display-element {
+    color: #111111;
+    font-family: Calibri, sans-serif;
+}
+.jspsych-content {
+    max-width: 50%;
+}
+.letters {
+    direction: ltr;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    display: flex;
+    line-height: 25px;
+    width: 60vw;
+}
+.faces {
+    direction: ltr;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    display: flex;
+    line-height: 25px;
+    width: 60vw;
+}
+.letters_example {
+    direction: ltr;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    display: flex;
+    line-height: 25px;
+    /* width: 70vw; */
+}
+.faces_example {
+    direction: ltr;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    display: flex;
+    line-height: 25px;
+    /* width: 70vw; */
+}
+.lotteries {
+    direction: ltr;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    display: flex;
+    line-height: 25px;
+    width: 50vw;
+}
+/* .lotteries span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.lotteries img {
+    display: block;
+} */
+div.sv_nav {
+    background-color: #ffffff;
+    color: #111111;
+    font-family: Calibri, sans-serif;
+}
+div.sv_q {
+    background-color: #ffffff;
+    color: #111111;
+    font-family: Calibri, sans-serif;
+}
+div.jspsych-content {
+    max-width: 70%;
+}
+#WTP_bar{
+    height: 400px; 
+    width: 40px;
+    border: 1px solid #ffffff;
+    cursor: text;
+    margin: auto;
+}
+/* Change sliders for WTP */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 60px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
+    margin-top: -12px; 
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; 
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 40px;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    background: #ffffff;
+    border-radius: 1.3px;
+    border: 0.2px solid #010101;
+} 
+  

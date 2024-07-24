@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First impression</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="face_trust_style.css">
+    <script src="stimuli/ternary_stimuli.js"></script>
+    <script src="stimuli/catch_stimuli.js"></script>
+    <!-- Local copy -->
+    <script src="code/jspsych/jspsych.js"></script>
+    <script src="code/jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="code/jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="code/jspsych/plugin-preload.js"></script>
+    <script src="code/jspsych/plugin-survey-likert.js"></script>
+    <script src="code/jspsych/plugin-html-button-response.js"></script>
+    <script src="code/jspsych/extension-mouse-tracking.js"></script>
+    <script src="code/jspsych/extension-record-video.js"></script>
+    <script src="code/jspsych/extension-webgazer.js"></script>
+    <script src="code/jspsych/plugin-html-slider-response.js"></script>
+    <script src="code/jspsych/plugin-survey.js"></script>
+
+    <script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
+
+    <link href="code/jspsych/jspsych.css" rel="stylesheet" type="text/css" /> 
+  </head>
+  <body></body>
+  <script>
+    var jsPsych = initJsPsych({
+      on_start: function(){
+        console.log('querying content-wrapper')
+        document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", 
+        function(ev){
+          ev.preventDefault(); 
+          return false;
+        });
+      }
+    });
+
+    function random_integer(min, max){
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Initialize timeline
+    var timeline = [];
+    
+    var sub_id = '';
+    while(sub_id==''){
+      var sub_id = prompt('Please enter your Prolific ID:');
+    } 
+
+    var today = new Date()
+    var date_string = today.toLocaleDateString("en-GB").replace(/\//g, '-') // creates date string with dd-mm-yyyy
+    var group = Math.random();
+    const INITIAL_FIXATION = 1000
+    const SCALE_START = -5;
+    const MAX_RESPONSE = 10;
+    const WTP_BAR_SIZE = 800;
+    const SCLAESIZE = 900;
+    const FIXATION_TIME = 500;
+    const JITTER = 150;
+    const LABELS = ['-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'];
+    const FACE_HEIGHT = 250;
+    const EXAMPLE_FACE_HEIGHT = 200;
+
+    jsPsych.data.addProperties({subject_id: sub_id})
+
+    /* init connection with pavlovia.org */
+    var pavlovia_init = {
+      type: jsPsychPavlovia,
+      command: "init"
+    };
+    timeline.push(pavlovia_init);
+    
+    var preload = {
+      type: jsPsychPreload,
+      images: [ 'stimuli/Zipperbigbag.PNG',
+                'stimuli/Zippersmallbag.PNG',
+                'stimuli/FuzeTea.PNG',
+                'stimuli/HEINZ.PNG',
+                'stimuli/Filtuna.PNG',
+                'stimuli/Smarties.PNG',
+                'stimuli/Sano99.PNG',
+                'stimuli/Colgate.PNG',
+                'stimuli/Cafeelite.PNG',
+                'stimuli/Tuna_ToGo.PNG',
+                'stimuli/Kikkoman.PNG',
+                'stimuli/Parachocolate.PNG',
+                'stimuli/Prince.PNG',
+                'stimuli/Wissotzky.PNG',
+                'stimuli/Chocolatemilk.PNG',
+                'stimuli/Splendid.PNG',
+                'stimuli/CocaCola2L.PNG',
+                'stimuli/Quaker.PNG',
+                'stimuli/Neviot.PNG',
+                'stimuli/KifKef.PNG',
+                'stimuli/Branflakes.PNG',
+                'stimuli/ChocolateSpread.PNG',
+                'stimuli/Fitness.PNG',
+                'stimuli/Baracke.PNG',
+                'stimuli/Milka.PNG',
+                'stimuli/YadMordechai.PNG',
+                'stimuli/Oreo.PNG',
+                'stimuli/Fitness_Chocolate.PNG',
+                'stimuli/Branflakesextra.PNG',
+                'stimuli/FuzeTeaGreen.PNG',
+                'stimuli/Tapuchips.PNG',
+                'stimuli/GelDeLin.PNG']
+    }
+    timeline.push(preload);
+
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        on_start: function(){
+        document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", function(ev){ev.preventDefault(); return false;});
+        },
+        stimulus: `
+          <h1>Welcome to the task!</h1>
+          <p>This is a task of first impressions.
+          <p>In this task, you will be asked to evaluate different people you see for the first time.
+          <br>Try to react based on your gut feelings.
+          <br><br>Please press SPACE to continue.</p>`,
+        choices: [' '],
+        data: {part: 'example'},
+        post_trial_gap: 250, 
+        allow_click: false
+    };
+    timeline.push(welcome);
+
+    var fixation = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '<p style="text-align: center;">+</p>',
+          choices: 'NO_KEYS',
+          data: {part: 'fixation'},
+          trial_duration: function(){
+            plus_minus = 1 + -2 * (Math.random()>0.5)
+            random_jitter = Math.random()*JITTER
+            return FIXATION_TIME + plus_minus * random_jitter}
+    }
+    
+    if (group<0.5){
+      // Choice experiment
+        var example_part1 = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: `
+          <p>Let's start with an example:
+          <br>Look at the faces below, and choose the one you think is more trustworthy.
+          <br>Imagine trusting this person with all your money, or with your life, and then base your choice on this impression.
+          <br><br>Press 'A' to choose the left face, and 'D' to choose the right face.</p>
+          <p style="text-align: center">Who is more trustworthy?</p>
+          <p class="letters_example">
+            <span><img src='img/A.png', width="35"></span>
+            <span><img src='img/D.png', width="35"></span>
+          </p>
+          <p class="faces_example">
+            <span><img src='stimuli/white_male_faces/CM1_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+            <span><img src='stimuli/white_male_faces/CM5_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          </p>`
+          ,
+          choices: ['a', 'd'],
+          data: {part: 'example'},
+          post_trial_gap: 250
+      };
+      
+      var example_response = 0;
+      // Post-example 1
+      var post_example1 = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function(){
+          example_response = jsPsych.data.get().last(1).select('response').values;
+          example_text = example_response=='a' ? "left" : "right";
+          return `<p>Nice work!
+                  <br>You chose the person on the ${example_text} as more trustworthy.
+                  <br>Sounds right?
+                  <br><br>Press SPACE to continue.</p>`
+        },
+        choices: [' '],
+        data: {part: 'example'},
+        allow_click: false,
+        post_trial_gap: 250
+      };
+      
+      var choice_trial = {
+          type: jsPsychHtmlKeyboardResponse, 
+          stimulus: function (choice_trial){
+                    random_order = Math.random();
+                    // randomize whether A is on the left
+                    if (random_order > 0.5) {
+                      left_key = 'target';
+                      right_key = 'competitor';
+                      stim =`
+                      <p style="text-align: center">Who is more trustworthy?</p>
+                      <p class="lotteries">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="lotteries">
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("target")}', height="${FACE_HEIGHT}"></span>
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("competitor")}', height="${FACE_HEIGHT}"></span>
+                      </p>`
+                    } else {
+                      left_key = 'competitor';
+                      right_key = 'target';
+                      stim =`
+                      <p style="text-align: center">Who is more trustworthy?</p>
+                      <p class="lotteries">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="lotteries">
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("competitor")}', height="${FACE_HEIGHT}"></span>
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("target")}', height="${FACE_HEIGHT}"></span>
+                      </p>`
+                    }
+                    return stim
+            },
+          choices: ['a', 'd'],
+          data: {part: 'binary',
+                triad_index: jsPsych.timelineVariable('index'),
+                A_key: function(){ return left_key},// which option is on the left (A key)?
+                D_key: function(){ return right_key},// which option is on the right (D key)?
+                target_trust: jsPsych.timelineVariable('target_trust'),
+                competitor_trust: jsPsych.timelineVariable('competitor_trust'),
+                },
+          on_finish: function(data) {
+                  var response = jsPsych.data.get().filter({part: 'binary'}).last(1).select('response').values;
+                  if (response == 'a'){ 
+                    data.actual_choice = left_key;
+                  }
+                  if (response == 'd'){ 
+                    data.actual_choice =  right_key;
+                  }
+            }
+        }
+
+        var catch_trial = {
+          type: jsPsychHtmlKeyboardResponse, 
+          stimulus: function (choice_trial){
+                    random_order = Math.random();
+                    // randomize whether A is on the left
+                    if (random_order > 0.5) {
+                      left_key = 'correct';
+                      right_key = 'incorrect';
+                      stim =`
+                      <p style="text-align: center">Who has darker hair?</p>
+                      <p class="lotteries">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="lotteries">
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("correct")}', height="${FACE_HEIGHT}"></span>
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("incorrect2")}', height="${FACE_HEIGHT}"></span>
+                      </p>`
+                    } else {
+                      left_key = 'incorrect';
+                      right_key = 'correct';
+                      stim =`
+                      <p style="text-align: center">Who has darker hair?</p>
+                      <p class="lotteries">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="lotteries">
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("incorrect2")}', height="${FACE_HEIGHT}"></span>
+                        <span><img src='stimuli/white_male_faces/${jsPsych.timelineVariable("correct")}', height="${FACE_HEIGHT}"></span>
+                      </p>`
+                    }
+                    return stim
+            },
+          choices: ['a', 'd'],
+          data: {part: 'catch',
+                triad_index: jsPsych.timelineVariable('index'),
+                A_key: function(){ return left_key},// which option is on the left (A key)?
+                D_key: function(){ return right_key},// which option is on the right (D key)?
+                correct_face: jsPsych.timelineVariable('correct'),
+                incorrect_face: jsPsych.timelineVariable('incorrect'),
+                },
+          on_finish: function(data) {
+                  var response = jsPsych.data.get().filter({part: 'binary'}).last(1).select('response').values;
+                  if (response == 'a'){ 
+                    data.actual_choice = left_key;
+                  }
+                  if (response == 'd'){ 
+                    data.actual_choice =  right_key;
+                  }
+            }
+        }  
+      }
+      else {
+        var example_part1 = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: `
+          <p>Let's start with an example:
+          <br>Look at the faces below, and choose the one you think is more trustworthy.
+          <br>Imagine trusting this person with all your money, or with your life, and then base your choice on this impression.
+          <br><br>Press 'A' to choose the left face, 'S' to choose the middle face and 'D' to choose the right face.</p>
+          <p style="text-align: center">Who is more trustworthy?</p>
+          <p class="letters_example">
+            <span><img src='img/A.png', width="35"></span>
+            <span><img src='img/S.png', width="35"></span>
+            <span><img src='img/D.png', width="35"></span>
+          </p>
+          <p class="faces_example">
+            <span><img src='stimuli/white_male_faces/CM1_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+            <span><img src='stimuli/white_male_faces/CM5_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+            <span><img src='stimuli/white_male_faces/CM8_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          </p>`
+          ,
+          choices: ['a', 's', 'd'],
+          data: {part: 'example'},
+          post_trial_gap: 250
+      };
+      
+      var example_response = 0;
+      // Post-example 1
+      var post_example1 = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function(){
+          example_response = jsPsych.data.get().last(1).select('response').values;
+          if (example_response == 'a'){
+            example_text = 'left'
+          } else if (example_response == 's'){
+            example_text = 'middle'
+          } else{
+            example_text = 'right'
+          }
+          return `<p>Nice work!
+                  <br>You chose the person on the ${example_text} as more trustworthy.
+                  <br>Sounds right?
+                  <br><br>Press SPACE to continue.</p>`
+        },
+        choices: [' '],
+        data: {part: 'example'},
+        allow_click: false,
+        post_trial_gap: 250
+      };
+
+        var choice_trial = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function (){
+                    random_order = Math.random();
+                    // randomize order
+                    if (random_order <= 0.143) { 
+                      // A B C
+                      left_face = jsPsych.timelineVariable('target');
+                      middle_face = jsPsych.timelineVariable('competitor');
+                      right_face = jsPsych.timelineVariable('decoy');
+                      // save the order
+                      left_key = 'target';
+                      middle_key = 'competitor';
+                      right_key = 'decoy';
+                    } else if (random_order > 0.143 & random_order <= 0.286){
+                      // A C B
+                      left_face = jsPsych.timelineVariable('target');
+                      middle_face = jsPsych.timelineVariable('decoy');
+                      right_face = jsPsych.timelineVariable('competitor');
+                      // save the order
+                      left_key = 'target';
+                      middle_key = 'decoy';
+                      right_key = 'competitor';
+                    } else if (random_order > 0.286 & random_order <= 0.429){
+                      // B A C
+                      left_face = jsPsych.timelineVariable('competitor');
+                      middle_face = jsPsych.timelineVariable('target');
+                      right_face = jsPsych.timelineVariable('decoy');
+                      // save the order
+                      left_key = 'competitor';
+                      middle_key = 'target';
+                      right_key = 'decoy';
+                    } else if (random_order > 0.429 & random_order <= 0.571){
+                      // B C A
+                      left_face = jsPsych.timelineVariable('competitor');
+                      middle_face = jsPsych.timelineVariable('decoy');
+                      right_face = jsPsych.timelineVariable('target');
+                      // save the order
+                      left_key = 'competitor';
+                      middle_key = 'decoy';
+                      right_key = 'target';
+                    } else if (random_order > 0.571 & random_order <= 0.714){
+                      /// C A B
+                      left_face = jsPsych.timelineVariable('decoy');
+                      middle_face = jsPsych.timelineVariable('target');
+                      right_face = jsPsych.timelineVariable('competitor');
+                      // save the order
+                      left_key = 'decoy';
+                      middle_key = 'target';
+                      right_key = 'competitor';
+                    } else if (random_order > 0.714){
+                      // C B A
+                      left_face = jsPsych.timelineVariable('decoy');
+                      middle_face = jsPsych.timelineVariable('competitor');
+                      right_face = jsPsych.timelineVariable('target');
+                      // save the order
+                      left_key = 'decoy';
+                      middle_key = 'competitor';
+                      right_key = 'target';
+                    }
+                    left_face_image = `<span><img src='stimuli/white_male_faces/${left_face}', height="${FACE_HEIGHT}"></span>`;
+                    middle_face_image = `<span><img src='stimuli/white_male_faces/${middle_face}', height="${FACE_HEIGHT}"></span>`;
+                    right_face_image = `<span><img src='stimuli/white_male_faces/${right_face}', height="${FACE_HEIGHT}"></span>`;
+                    stim =`
+                      <p style="text-align: center">Who is more trustworthy?</p>
+                      <p class="letters">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/S.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="faces">
+                        <span>${left_face_image}</span>
+                        <span>${middle_face_image}</span>
+                        <span>${right_face_image}</span>
+                      </p>` 
+                    return stim
+            },
+          choices: ['a', 's', 'd'],
+          data: {part: 'ternary',
+                triad_index: jsPsych.timelineVariable('index'),
+                target_trust: jsPsych.timelineVariable('target_trust'),
+                competitor_trust: jsPsych.timelineVariable('competitor_trust'),
+                decoy_trust: jsPsych.timelineVariable('decoy_trust'),
+                A_key: function(){return left_key},
+                S_key: function(){return middle_key},
+                D_key: function(){return right_key},
+                },
+            on_finish: function(data) {
+                  var response = jsPsych.data.get().filter({part: 'ternary'}).last(1).select('response').values;
+                  if (response == 'a'){ 
+                    data.actual_choice = left_key;
+                  }
+                  if (response == 's'){ 
+                    data.actual_choice =  middle_key;
+                  }
+                  if (response == 'd'){ 
+                    data.actual_choice =  right_key;
+                  }
+            }
+        }
+
+        var catch_trial = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function (){
+                    random_order = Math.random();
+                    // randomize order
+                    if (random_order <= 0.143) { 
+                      // A B C
+                      left_face = jsPsych.timelineVariable('correct');
+                      middle_face = jsPsych.timelineVariable('incorrect1');
+                      right_face = jsPsych.timelineVariable('incorrect2');
+                      // save the order
+                      left_key = 'correct';
+                      middle_key = 'incorrect1';
+                      right_key = 'incorrect2';
+                    } else if (random_order > 0.143 & random_order <= 0.286){
+                      // A C B
+                      left_face = jsPsych.timelineVariable('correct');
+                      middle_face = jsPsych.timelineVariable('incorrect2');
+                      right_face = jsPsych.timelineVariable('incorrect1');
+                      // save the order
+                      left_key = 'correct';
+                      middle_key = 'incorrect2';
+                      right_key = 'incorrect1';
+                    } else if (random_order > 0.286 & random_order <= 0.429){
+                      // B A C
+                      left_face = jsPsych.timelineVariable('incorrect1');
+                      middle_face = jsPsych.timelineVariable('correct');
+                      right_face = jsPsych.timelineVariable('incorrect2');
+                      // save the order
+                      left_key = 'incorrect1';
+                      middle_key = 'correct';
+                      right_key = 'incorrect2';
+                    } else if (random_order > 0.429 & random_order <= 0.571){
+                      // B C A
+                      left_face = jsPsych.timelineVariable('incorrect1');
+                      middle_face = jsPsych.timelineVariable('incorrect2');
+                      right_face = jsPsych.timelineVariable('correct');
+                      // save the order
+                      left_key = 'incorrect1';
+                      middle_key = 'incorrect2';
+                      right_key = 'correct';
+                    } else if (random_order > 0.571 & random_order <= 0.714){
+                      /// C A B
+                      left_face = jsPsych.timelineVariable('incorrect2');
+                      middle_face = jsPsych.timelineVariable('correct');
+                      right_face = jsPsych.timelineVariable('incorrect1');
+                      // save the order
+                      left_key = 'incorrect2';
+                      middle_key = 'correct';
+                      right_key = 'incorrect1';
+                    } else if (random_order > 0.714){
+                      // C B A
+                      left_face = jsPsych.timelineVariable('incorrect2');
+                      middle_face = jsPsych.timelineVariable('incorrect1');
+                      right_face = jsPsych.timelineVariable('correct');
+                      // save the order
+                      left_key = 'incorrect2';
+                      middle_key = 'incorrect1';
+                      right_key = 'correct';
+                    }
+                    left_face_image = `<span><img src='stimuli/white_male_faces/${left_face}', height="${FACE_HEIGHT}"></span>`;
+                    middle_face_image = `<span><img src='stimuli/white_male_faces/${middle_face}', height="${FACE_HEIGHT}"></span>`;
+                    right_face_image = `<span><img src='stimuli/white_male_faces/${right_face}', height="${FACE_HEIGHT}"></span>`;
+                    stim =`
+                      <p style="text-align: center">Who has darker hair?</p>
+                      <p class="letters">
+                        <span><img src='img/A.png', width="35"></span>
+                        <span><img src='img/S.png', width="35"></span>
+                        <span><img src='img/D.png', width="35"></span>
+                      </p>
+                      <p class="faces">
+                        <span>${left_face_image}</span>
+                        <span>${middle_face_image}</span>
+                        <span>${right_face_image}</span>
+                      </p>` 
+                    return stim
+            },
+          choices: ['a', 's', 'd'],
+          data: {part: 'catch',
+                triad_index: jsPsych.timelineVariable('index'),
+                correct_face: jsPsych.timelineVariable('correct'),
+                incorrect_face1: jsPsych.timelineVariable('incorrect1'),
+                incorrect_face2: jsPsych.timelineVariable('incorrect2'),
+                A_key: function(){return left_key},
+                S_key: function(){return middle_key},
+                D_key: function(){return right_key},
+                },
+            on_finish: function(data) {
+                  var response = jsPsych.data.get().filter({part: 'ternary'}).last(1).select('response').values;
+                  if (response == 'a'){ 
+                    data.actual_choice = left_key;
+                  }
+                  if (response == 's'){ 
+                    data.actual_choice =  middle_key;
+                  }
+                  if (response == 'd'){ 
+                    data.actual_choice =  right_key;
+                  }
+            }
+        }
+    }
+
+    var pre_task = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>We will now begin the task.
+              <br>You will see faces, and you are asked to choose who do you think is more trustworthy.
+              <br>Try to react based on your initial gut feeling.
+              <br><br>You will perform 3 blocks of trials. 
+              <br>They should take between 8-10 minutes total. 
+              <br>Please complete the task in one sitting.
+              <br><br>Press SPACE to start the task.</p>`
+          },
+          choices: [' '],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+
+    var block_break = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>Block ended. 
+              <br>Press SPACE to start the next block of trials.</p>`
+          },
+          choices: [' '],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+
+    var real_task = {
+      timeline: [choice_trial, fixation],
+      timeline_variables: ternary_stimuli,
+      randomize_order: true
+    };
+    timeline.push(example_part1);
+    timeline.push(post_example1);
+    timeline.push(pre_task);
+    timeline.push(fixation);
+    timeline.push(real_task);
+    timeline.push(block_break);
+    timeline.push(fixation);
+    timeline.push(real_task);
+    timeline.push(block_break);
+    timeline.push(fixation);
+    timeline.push(real_task);
+
+    var post_task = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>Well done! You finished the main task!
+              <br><br>We now have a short additional task for you.
+              <br><br>Press SPACE to continue.</p>`
+          },
+          choices: [' '],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+    timeline.push(post_task);
+
+    // final catch task
+    var pre_catch_task = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>In the next task, choose the person with the <span style="font-weight:bold">darker hair color</span>.
+              <br><br>Press SPACE to start the task.</p>`
+          },
+          choices: [' '],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+    timeline.push(pre_catch_task);
+
+    var catch_task = {
+      timeline: [catch_trial, fixation],
+      timeline_variables: catch_stimuli,
+      randomize_order: true
+    };
+    timeline.push(catch_task);
+    
+    /* finish connection with pavlovia.org */
+    var pavlovia_finish = {
+      type: jsPsychPavlovia,
+      command: "finish"
+    };
+    timeline.push(pavlovia_finish);
+
+    var finish_screen = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p>Well done! You finished the task.
+              <br>Thank you for your participation!
+              <br><br>Copy this completion code and paste it in Prolific to complete the study:</p>
+              <p style="text-align: center;">C1OQM82T</p>
+              <p>Press E to close.</p>`
+      },
+      choices: ['e'],
+      data: {part: 'manual_scan_wait'},
+      post_trial_gap: 0
+    };
+    timeline.push(finish_screen);
+
+    jsPsych.run(timeline);
+  </script>
+</html>
