@@ -1,5 +1,5 @@
 body {
-    background-color: #ffffff;
+    background-color: #1C1C1C;
 }
 h1 {
     font-size: 50px;
@@ -34,7 +34,7 @@ p.rtl{
     max-width: 80%;
 }
 .jspsych-display-element {
-    color: #111111;
+    color: #D5D5D5; 
     font-family: Calibri, sans-serif;
 }
 .jspsych-content {
@@ -48,13 +48,14 @@ p.rtl{
     line-height: 25px;
     width: 60vw;
 }
-.faces {
+.options {
     direction: ltr;
     justify-content: space-around;
     flex-flow: row wrap;
     display: flex;
     line-height: 25px;
     width: 60vw;
+    align-items: center;
 }
 .letters_example {
     direction: ltr;
@@ -88,13 +89,13 @@ p.rtl{
     display: block;
 } */
 div.sv_nav {
-    background-color: #ffffff;
-    color: #111111;
+    background-color: #1C1C1C;
+    color: #D5D5D5;
     font-family: Calibri, sans-serif;
 }
 div.sv_q {
-    background-color: #ffffff;
-    color: #111111;
+    background-color: #1C1C1C;
+    color: #D5D5D5;
     font-family: Calibri, sans-serif;
 }
 div.jspsych-content {
