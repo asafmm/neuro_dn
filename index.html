@@ -3,7 +3,7 @@
   <head>
     <title>First impression</title>
     <meta charset='UTF-8'>
-    <link rel="stylesheet" href="face_trust_style.css">
+    <link rel="stylesheet" href="choice_style.css">
     <script src="stimuli.js"></script>
     <!-- Local copy -->
     <script src="jspsych/jspsych.js"></script>
@@ -41,7 +41,7 @@
     }
 
     function resize_image(image){
-      var ratio = Math.min(image.width / MAX_WIDTH, image.height / MAX_HEIGHT);
+      var ratio = Math.max(image.width / MAX_WIDTH, image.height / MAX_HEIGHT);
       return {width: image.width / ratio, height: image.height / ratio};
     }
 
@@ -64,8 +64,8 @@
     const FIXATION_TIME = 500;
     const JITTER = 150;
     const LABELS = ['-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'];
-    const MAX_HEIGHT = 100;
-    const MAX_WIDTH = 100;
+    const MAX_HEIGHT = 200;
+    const MAX_WIDTH = 200;
     const EXAMPLE_FACE_HEIGHT = 200;
 
     jsPsych.data.addProperties({subject_id: sub_id})
@@ -113,11 +113,11 @@
         document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", function(ev){ev.preventDefault(); return false;});
         },
         stimulus: `
-          <h1>Welcome to the task!</h1>
-          <p>This is a task of first impressions.
-          <p>In this task, you will be asked to evaluate different people you see for the first time.
-          <br>Try to react based on your gut feelings.
-          <br><br>Please press SPACE to continue.</p>`,
+          <h1>ברוכים הבאים לניסוי!</h1>
+          <p>במהלך הניסוי יוצגו בפניכם מוצרים בשלשות.
+          <p>עליכם לבחור את המוצר שהייתם רוצים לרכוש מבין השלושה בכל שלב.
+          
+          <br><br>לחצו רווח להמשך.</p>`,
         choices: [' '],
         data: {part: 'example'},
         post_trial_gap: 250, 
@@ -139,23 +139,17 @@
       var example_part1 = {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: `
-        <p>Let's start with an example:
-        <br>Look at the faces below, and choose the one you think is more trustworthy.
-        <br>Imagine trusting this person with all your money, or with your life, and then base your choice on this impression.
-        <br><br>Press 'A' to choose the left face, 'S' to choose the middle face and 'D' to choose the right face.</p>
-        <p style="text-align: center">Who is more trustworthy?</p>
-        <p class="letters_example">
-          <span><img src='img/A.png', width="35"></span>
-          <span><img src='img/S.png', width="35"></span>
-          <span><img src='img/D.png', width="35"></span>
-        </p>
-        <p class="faces_example">
-          <span><img src='stimuli/white_male_faces/CM1_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
-          <span><img src='stimuli/white_male_faces/CM5_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
-          <span><img src='stimuli/white_male_faces/CM8_1.jpg', height="${EXAMPLE_FACE_HEIGHT}"></span>
+        <p>הנה דוגמא:
+        <br>לחצו "1" כדי לבחור במוצר השמאלי
+        <br>&ensp;&ensp;&ensp;&ensp; "2" עבור המוצר האמצעי
+        <br>&ensp;&ensp;&ensp;&ensp; "3" עבור המוצר הימני.</p>
+        <p class="options">
+          <span><img src='stimuli/FuzeTeaGreen.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          <span><img src='stimuli/Tapuchips.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          <span><img src='stimuli/GelDeLin.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
         </p>`
         ,
-        choices: ['a', 's', 'd'],
+        choices: ['1', '2', '3'],
         data: {part: 'example'},
         post_trial_gap: 250
     };
@@ -166,17 +160,17 @@
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function(){
         example_response = jsPsych.data.get().last(1).select('response').values;
-        if (example_response == 'a'){
-          example_text = 'left'
-        } else if (example_response == 's'){
-          example_text = 'middle'
+        if (example_response == '1'){
+          example_text = 'שמאלי'
+        } else if (example_response == '2'){
+          example_text = 'אמצעי'
         } else{
-          example_text = 'right'
+          example_text = 'ימני'
         }
-        return `<p>Nice work!
-                <br>You chose the person on the ${example_text} as more trustworthy.
-                <br>Sounds right?
-                <br><br>Press SPACE to continue.</p>`
+        return `<p>יפה!
+                <br>בחרתם במוצר ה${example_text}.
+                <br>נשמע נכון?
+                <br><br>לחצו רווח להמשך.</p>`
       },
       choices: [' '],
       data: {part: 'example'},
@@ -288,13 +282,10 @@
     var pre_task = {
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
-            return `<p>We will now begin the task.
-              <br>You will see faces, and you are asked to choose who do you think is more trustworthy.
-              <br>Try to react based on your initial gut feeling.
-              <br><br>You will perform 3 blocks of trials. 
-              <br>They should take between 8-10 minutes total. 
-              <br>Please complete the task in one sitting.
-              <br><br>Press SPACE to start the task.</p>`
+            return `<p>כעת נתחיל במטלה.
+              <br>אתם תראו שלושה מוצרים בכל פעם, ואתם מתבקשים לבחור את המוצר שתרצו לרכוש.
+
+              <br><br>לחצו רווח כדי להתחיל את המטלה.</p>`
           },
           choices: [' '],
           data: {part: 'manual_scan_wait'},
@@ -305,8 +296,8 @@
     var block_break = {
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
-            return `<p>Block ended. 
-              <br>Press SPACE to start the next block of trials.</p>`
+            return `<p>בלוק נגמר. 
+              <br>לחץ רווח להמשיך לבלוק הבא.</p>`
           },
           choices: [' '],
           data: {part: 'manual_scan_wait'},
@@ -319,60 +310,29 @@
       timeline_variables: image_stimuli,
       randomize_order: true
     };
-    // timeline.push(example_part1);
-    // timeline.push(post_example1);
-    // timeline.push(pre_task);
+    timeline.push(example_part1);
+    timeline.push(post_example1);
+    timeline.push(pre_task);
+    timeline.push(fixation);
+    timeline.push(real_task);
+    timeline.push(block_break);
+    timeline.push(fixation);
+    timeline.push(real_task);
+    // timeline.push(block_break);
     // timeline.push(fixation);
-    timeline.push(real_task);
-    timeline.push(block_break);
-    timeline.push(fixation);
-    timeline.push(real_task);
-    timeline.push(block_break);
-    timeline.push(fixation);
-    timeline.push(real_task);
+    // timeline.push(real_task);
 
     var post_task = {
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
-            return `<p>Well done! You finished the main task!
-              <br><br>We now have a short additional task for you.
-              <br><br>Press SPACE to continue.</p>`
+            return `<p>כל הכבוד! סיימתם את הניסוי!</p>`
           },
-          choices: [' '],
+          choices: ['p'],
           data: {part: 'manual_scan_wait'},
           allow_click: false,
           post_trial_gap: 250
     };
     timeline.push(post_task);
-
-    // final catch task
-    var pre_catch_task = {
-          type: jsPsychHtmlKeyboardResponse,
-          stimulus: function(){
-            return `<p>In the next task, choose the person with the <span style="font-weight:bold">darker hair color</span>.
-              <br><br>Press SPACE to start the task.</p>`
-          },
-          choices: [' '],
-          data: {part: 'manual_scan_wait'},
-          allow_click: false,
-          post_trial_gap: 250
-    };
-    timeline.push(pre_catch_task);
-    
-    var finish_screen = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: function(){
-        return `<p>Well done! You finished the task.
-              <br>Thank you for your participation!
-              <br><br>Copy this completion code and paste it in Prolific to complete the study:</p>
-              <p style="text-align: center;">C1OQM82T</p>
-              <p>Press E to close.</p>`
-      },
-      choices: ['e'],
-      data: {part: 'manual_scan_wait'},
-      post_trial_gap: 0
-    };
-    timeline.push(finish_screen);
 
     jsPsych.run(timeline);
   </script>
