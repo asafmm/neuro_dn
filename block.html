@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First impression</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="choice_style.css">
+    <script src="stimuli.js"></script>
+    <!-- Local copy -->
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-survey-likert.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
+    <script src="jspsych/extension-mouse-tracking.js"></script>
+    <script src="jspsych/extension-record-video.js"></script>
+    <script src="jspsych/extension-webgazer.js"></script>
+    <script src="jspsych/plugin-html-slider-response.js"></script>
+    <script src="jspsych/plugin-survey.js"></script>
+
+    <script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="lib/jspsych-7-pavlovia-2022.1.1.js"></script>
+
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" /> 
+  </head>
+  <body></body>
+  <script>
+    var jsPsych = initJsPsych({
+      on_start: function(){
+        console.log('querying content-wrapper')
+        document.querySelector(".jspsych-content-wrapper").addEventListener("contextmenu", 
+        function(ev){
+          ev.preventDefault(); 
+          return false;
+        });
+      }
+    });
+
+    function random_integer(min, max){
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function resize_image(image){
+      var ratio = Math.max(image.width / MAX_WIDTH, image.height / MAX_HEIGHT);
+      return {width: image.width / ratio, height: image.height / ratio};
+    }
+
+    // Initialize timeline
+    var timeline = [];
+    
+    var sub_id = '';
+    while(sub_id==''){
+      var sub_id = prompt('מספר נבדק:');
+    } 
+    block_num = prompt('מספר בלוק:')
+
+    var today = new Date()
+    var date_string = today.toLocaleDateString("en-GB").replace(/\//g, '-') // creates date string with dd-mm-yyyy
+    
+    const INITIAL_FIXATION = 2000
+    const SCALE_START = -5;
+    const MAX_RESPONSE = 4000;
+    const JITTER = 500;
+    const SOA = 10000;
+    // ITI = 6 sec jittered
+    // SOA = 10 sec
+    const WTP_BAR_SIZE = 800;
+    const SCLAESIZE = 900;
+    const FIXATION_TIME = 500;
+    const LABELS = ['-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'];
+    const MAX_HEIGHT = 200;
+    const MAX_WIDTH = 200;
+    const EXAMPLE_FACE_HEIGHT = 200;
+
+    jsPsych.data.addProperties({subject_id: sub_id})
+    
+    var preload = {
+      type: jsPsychPreload,
+      images: ['stimuli\\Barackemaybe.png',
+              'stimuli\\Branflakesextra.png',
+              'stimuli\\Cafeelite.png',
+              'stimuli\\Chocolatemilk.png',
+              'stimuli\\ChocolateSpread.png',
+              'stimuli\\CocaCola2L.png',
+              'stimuli\\Colgatemaybe.png',
+              'stimuli\\Filtunamaybe.png',
+              'stimuli\\Fitnessmaybe.png',
+              'stimuli\\Fitness_Chocolate.png',
+              'stimuli\\FuseTeaGreen.png',
+              'stimuli\\FuzeTea.png',
+              'stimuli\\GelDeLin.png',
+              'stimuli\\Heinz.png',
+              'stimuli\\KifKef.PNG',
+              'stimuli\\Kikkoman.png',
+              'stimuli\\Milka.PNG',
+              'stimuli\\Neviot.PNG',
+              'stimuli\\Oreo.PNG',
+              'stimuli\\ParaChocolate.png',
+              'stimuli\\Prince.PNG',
+              'stimuli\\Quakermaybe.png',
+              'stimuli\\Sano99.png',
+              'stimuli\\Smarties.PNG',
+              'stimuli\\Splendid.PNG',
+              'stimuli\\Tapuchips.PNG',
+              'stimuli\\Tuna_ToGo.png',
+              'stimuli\\Wissotzky.png',
+              'stimuli\\YadMordechai.png',
+              'stimuli\\Zipperbigbag.png',
+              'stimuli\\Zippersmallbag.png']
+    }
+    timeline.push(preload);
+
+    var fixation = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '<p style="text-align: center;">+</p>',
+          choices: 'NO_KEYS',
+          data: {part: 'fixation'},
+          trial_duration: function(){
+            plus_minus = 1 + -2 * (Math.random()>0.5)
+            random_jitter = Math.random()*JITTER
+            last_rt = jsPsych.data.get().last(1).values()[0].rt;
+            if (last_rt == null){
+              return SOA - MAX_RESPONSE + plus_minus * random_jitter
+            } else {
+              return SOA - last_rt + plus_minus * random_jitter
+            }
+            }
+    }
+
+      var choice_trial = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function (){
+                  random_order = Math.random();
+                  // randomize order
+                  if (random_order <= 0.143) { 
+                    // A B C
+                    left_option = jsPsych.timelineVariable('target1');
+                    middle_option = jsPsych.timelineVariable('target2');
+                    right_option = jsPsych.timelineVariable('distractor');
+                    // save the order
+                    left_key = 'target1';
+                    middle_key = 'target2';
+                    right_key = 'distractor';
+                  } else if (random_order > 0.143 & random_order <= 0.286){
+                    // A C B
+                    left_option = jsPsych.timelineVariable('target1');
+                    middle_option = jsPsych.timelineVariable('distractor');
+                    right_option = jsPsych.timelineVariable('target2');
+                    // save the order
+                    left_key = 'target1';
+                    middle_key = 'distractor';
+                    right_key = 'target2';
+                  } else if (random_order > 0.286 & random_order <= 0.429){
+                    // B A C
+                    left_option = jsPsych.timelineVariable('target2');
+                    middle_option = jsPsych.timelineVariable('target1');
+                    right_option = jsPsych.timelineVariable('distractor');
+                    // save the order
+                    left_key = 'target2';
+                    middle_key = 'target1';
+                    right_key = 'distractor';
+                  } else if (random_order > 0.429 & random_order <= 0.571){
+                    // B C A
+                    left_option = jsPsych.timelineVariable('target2');
+                    middle_option = jsPsych.timelineVariable('distractor');
+                    right_option = jsPsych.timelineVariable('target1');
+                    // save the order
+                    left_key = 'target2';
+                    middle_key = 'distractor';
+                    right_key = 'target1';
+                  } else if (random_order > 0.571 & random_order <= 0.714){
+                    /// C A B
+                    left_option = jsPsych.timelineVariable('distractor');
+                    middle_option = jsPsych.timelineVariable('target1');
+                    right_option = jsPsych.timelineVariable('target2');
+                    // save the order
+                    left_key = 'distractor';
+                    middle_key = 'target1';
+                    right_key = 'target2';
+                  } else if (random_order > 0.714){
+                    // C B A
+                    left_option = jsPsych.timelineVariable('distractor');
+                    middle_option = jsPsych.timelineVariable('target2');
+                    right_option = jsPsych.timelineVariable('target1');
+                    // save the order
+                    left_key = 'distractor';
+                    middle_key = 'target2';
+                    right_key = 'target1';
+                  }
+                  left_option_img = new Image();
+                  left_option_img.src = left_option;
+                  middle_option_img = new Image();
+                  middle_option_img.src = middle_option;
+                  right_option_img = new Image();
+                  right_option_img.src = right_option;
+                  left_new_dim = resize_image(left_option_img);
+                  middle_new_dim = resize_image(middle_option_img);
+                  right_new_dim = resize_image(right_option_img);
+                  left_option_html = `<span><img src='${left_option}', width="${left_new_dim.width}", height="${left_new_dim.height}"></span>`;
+                  middle_option_html = `<span><img src='${middle_option}', width="${middle_new_dim.width}", height="${middle_new_dim.height}"></span>`;
+                  right_option_html = `<span><img src='${right_option}', width="${right_new_dim.width}", height="${right_new_dim.height}"></span>`;
+                  stim =`
+                    <p class="options">
+                      <span>${left_option_html}</span>
+                      <span>${middle_option_html}</span>
+                      <span>${right_option_html}</span>
+                    </p>` 
+                  return stim
+          },
+        trial_duration: MAX_RESPONSE,
+        choices: ['1', '2', '3'],
+        data: {part: 'trinary',
+              triad_index: jsPsych.timelineVariable('index'),
+              one_key: function(){return left_key},
+              two_key: function(){return middle_key},
+              three_key: function(){return right_key},
+              target1: jsPsych.timelineVariable('target1'),
+              target2: jsPsych.timelineVariable('target2'),
+              distractor: jsPsych.timelineVariable('distractor'),
+              target1_rank: jsPsych.timelineVariable('target1_rank'),
+              target2_rank: jsPsych.timelineVariable('target2_rank'),
+              distractor_rank: jsPsych.timelineVariable('distractor_rank'),
+              target1_choice: jsPsych.timelineVariable('target1_choice'),
+              target2_choice: jsPsych.timelineVariable('target2_choice'),
+              distractor_choice: jsPsych.timelineVariable('distractor_choice'),
+              targets_diff: jsPsych.timelineVariable('targets_diff')
+              },
+          on_finish: function(data) {
+                var response = jsPsych.data.get().filter({part: 'trinary'}).last(1).select('response').values;
+                if (response == '1'){ 
+                  data.actual_choice = left_key;
+                }
+                if (response == '2'){ 
+                  data.actual_choice =  middle_key;
+                }
+                if (response == '3'){ 
+                  data.actual_choice =  right_key;
+                }
+          }
+        }
+        
+    var block_break = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>בלוק נגמר. 
+              </p>`
+          },
+          choices: [' '],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+
+    var real_task = {
+      timeline: [choice_trial, fixation],
+      timeline_variables: image_stimuli.slice(0, 2),
+      randomize_order: true
+    };
+
+    var initial_fixation = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '<p style="text-align: center;">+</p>',
+          choices: 'NO_KEYS',
+          data: {part: 'fixation'},
+          trial_duration: INITIAL_FIXATION
+    }
+
+    var manual_pause = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p>בלוק נגמר.</p>`
+      },
+      choices: [' '],
+      data: {part: 'manual_scan_wait'},
+      post_trial_gap: 0,
+      on_finish: function(){
+        jsPsych.data.get().localSave('csv', `${block_num}_${date_string}_${sub_id}.csv`);
+      }
+    };
+
+    var delay = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '',
+      choices: "NO_KEYS",
+      data: {part: 'delay'},
+      trial_duration: 700
+    }
+
+    var wait_for_scan_initial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p style="text-align: center;">מיד מתחילים.</p>`
+      },
+      choices: ['5', 't'],
+      data: {part: 'scan_wait'},
+      post_trial_gap: 0
+    };
+
+    timeline.push(wait_for_scan_initial);
+    timeline.push(initial_fixation);
+    timeline.push(real_task);
+    timeline.push(initial_fixation);
+    timeline.push(delay);
+    timeline.push(manual_pause);
+
+    jsPsych.run(timeline);
+  </script>
+</html>

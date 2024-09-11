@@ -4,7 +4,7 @@
     <title>First impression</title>
     <meta charset='UTF-8'>
     <link rel="stylesheet" href="choice_style.css">
-    <script src="stimuli.js"></script>
+    <script src="example_stimuli.js"></script>
     <!-- Local copy -->
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
@@ -48,12 +48,6 @@
     // Initialize timeline
     var timeline = [];
     
-    var sub_id = '';
-    while(sub_id==''){
-      var sub_id = prompt('מספר נבדק:');
-    } 
-    block_num = prompt('מספר בלוק:')
-
     var today = new Date()
     var date_string = today.toLocaleDateString("en-GB").replace(/\//g, '-') // creates date string with dd-mm-yyyy
     
@@ -71,42 +65,14 @@
     const MAX_HEIGHT = 200;
     const MAX_WIDTH = 200;
     const EXAMPLE_FACE_HEIGHT = 200;
-
-    jsPsych.data.addProperties({subject_id: sub_id})
     
     var preload = {
       type: jsPsychPreload,
-      images: ['stimuli\\Barackemaybe.png',
-              'stimuli\\Branflakesextra.png',
-              'stimuli\\Cafeelite.png',
-              'stimuli\\Chocolatemilk.png',
-              'stimuli\\ChocolateSpread.png',
-              'stimuli\\CocaCola2L.png',
-              'stimuli\\Colgatemaybe.png',
-              'stimuli\\Filtunamaybe.png',
-              'stimuli\\Fitnessmaybe.png',
-              'stimuli\\Fitness_Chocolate.png',
-              'stimuli\\FuseTeaGreen.png',
-              'stimuli\\FuzeTea.png',
-              'stimuli\\GelDeLin.png',
-              'stimuli\\Heinz.png',
-              'stimuli\\KifKef.PNG',
-              'stimuli\\Kikkoman.png',
-              'stimuli\\Milka.PNG',
-              'stimuli\\Neviot.PNG',
-              'stimuli\\Oreo.PNG',
-              'stimuli\\ParaChocolate.png',
-              'stimuli\\Prince.PNG',
-              'stimuli\\Quakermaybe.png',
-              'stimuli\\Sano99.png',
-              'stimuli\\Smarties.PNG',
-              'stimuli\\Splendid.PNG',
-              'stimuli\\Tapuchips.PNG',
-              'stimuli\\Tuna_ToGo.png',
-              'stimuli\\Wissotzky.png',
-              'stimuli\\YadMordechai.png',
-              'stimuli\\Zipperbigbag.png',
-              'stimuli\\Zippersmallbag.png']
+      images: ['stimuli\\example\\example1.png',
+              'stimuli\\example\\example2.png',
+              'stimuli\\example\\example31.png',
+              'stimuli\\example\\example32.png',
+              'stimuli\\example\\example33.png',]
     }
     timeline.push(preload);
 
@@ -120,8 +86,8 @@
           <p>במהלך הניסוי יוצגו בפניכם מוצרים בשלשות.
           <p>עליכם לבחור את המוצר המועדף עליכם.
           
-          <br><br>לחצו רווח להמשך.</p>`,
-        choices: [' '],
+          <br><br>לחצו להמשך.</p>`,
+        choices: ['1', '2', '3'],
         data: {part: 'example'},
         post_trial_gap: 250, 
         allow_click: false
@@ -179,15 +145,28 @@
         return `<p>יפה!
                 <br>בחרתם במוצר ה${example_text}.
                 <br>נשמע נכון?
-                <br><br>לחצו רווח להמשך.</p>`
+                <br><br>לחצו להמשך.</p>`
       },
-      choices: [' '],
+      choices: ['1', '2', '3'],
       data: {part: 'example'},
       allow_click: false,
       post_trial_gap: 250
     };
 
-      var choice_trial = {
+    var pre_task = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: function(){
+            return `<p>כעת נתחיל במטלה.
+              <br>אתם תראו שלושה מוצרים בכל פעם, ואתם מתבקשים את המוצר המועדף עליכם. 
+              <br>לחצו כדי להמשיך באימון.</p>`
+          },
+          choices: ['1', '2', '3'],
+          data: {part: 'manual_scan_wait'},
+          allow_click: false,
+          post_trial_gap: 250
+    };
+
+    var choice_trial = {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: function (){
                   random_order = Math.random();
@@ -269,24 +248,17 @@
           },
         trial_duration: MAX_RESPONSE,
         choices: ['1', '2', '3'],
-        data: {part: 'ternary',
+        data: {part: 'trinary',
               triad_index: jsPsych.timelineVariable('index'),
               one_key: function(){return left_key},
               two_key: function(){return middle_key},
               three_key: function(){return right_key},
               target1: jsPsych.timelineVariable('target1'),
               target2: jsPsych.timelineVariable('target2'),
-              distractor: jsPsych.timelineVariable('distractor'),
-              target1_rank: jsPsych.timelineVariable('target1_rank'),
-              target2_rank: jsPsych.timelineVariable('target2_rank'),
-              distractor_rank: jsPsych.timelineVariable('distractor_rank'),
-              target1_choice: jsPsych.timelineVariable('target1_choice'),
-              target2_choice: jsPsych.timelineVariable('target2_choice'),
-              distractor_choice: jsPsych.timelineVariable('distractor_choice'),
-              targets_diff: jsPsych.timelineVariable('targets_diff')
+              distractor: jsPsych.timelineVariable('distractor')  
               },
           on_finish: function(data) {
-                var response = jsPsych.data.get().filter({part: 'ternary'}).last(1).select('response').values;
+                var response = jsPsych.data.get().filter({part: 'trinary'}).last(1).select('response').values;
                 if (response == '1'){ 
                   data.actual_choice = left_key;
                 }
@@ -298,20 +270,6 @@
                 }
           }
         }
-        
-    var pre_task = {
-          type: jsPsychHtmlKeyboardResponse,
-          stimulus: function(){
-            return `<p>כעת נתחיל במטלה.
-              <br>אתם תראו שלושה מוצרים בכל פעם, ואתם מתבקשים את המוצר המועדף עליכם.
-
-              <br><br>לחצו רווח כדי להתחיל את המטלה.</p>`
-          },
-          choices: [' '],
-          data: {part: 'manual_scan_wait'},
-          allow_click: false,
-          post_trial_gap: 250
-    };
 
     var block_break = {
           type: jsPsychHtmlKeyboardResponse,
@@ -325,9 +283,9 @@
           post_trial_gap: 250
     };
 
-    var real_task = {
+    var example_task = {
       timeline: [choice_trial, fixation],
-      timeline_variables: image_stimuli.slice(0, 2),
+      timeline_variables: image_stimuli,
       randomize_order: true
     };
 
@@ -348,7 +306,7 @@
       data: {part: 'manual_scan_wait'},
       post_trial_gap: 0,
       on_finish: function(){
-        jsPsych.data.get().localSave('csv', `${block_num}_${date_string}_${sub_id}.csv`);
+        jsPsych.data.get().localSave('csv', `instructions_${date_string}.csv`);
       }
     };
 
@@ -360,23 +318,11 @@
       trial_duration: 700
     }
 
-    var wait_for_scan_initial = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: function(){
-        return `<p style="text-align: center;">מיד מתחילים.</p>`
-      },
-      choices: ['5', 't'],
-      data: {part: 'scan_wait'},
-      post_trial_gap: 0
-    };
-
     timeline.push(example_part1);
     timeline.push(post_example1);
     timeline.push(pre_task);
-    timeline.push(wait_for_scan_initial);
     timeline.push(initial_fixation);
-    timeline.push(real_task);
-    timeline.push(initial_fixation);
+    timeline.push(example_task);
     timeline.push(delay);
     timeline.push(manual_pause);
 

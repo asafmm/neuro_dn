@@ -509,6 +509,7 @@ if __name__=='__main__':
     # for each target pair, add all 6 distractors
     for diff in target_index_pair_df.index:
         target1_index, target2_index = target_index_pair_df.loc[diff]
+        target1_rank, target2_rank = target1_index+1, target2_index+1
         target1 = targets.loc[target1_index, 'image_path']
         target2 = targets.loc[target2_index, 'image_path']
         target1_choice = targets.loc[target1_index, 'choice']
@@ -516,8 +517,9 @@ if __name__=='__main__':
         for distractor_i in distractors.index:
             distractor = distractors.loc[distractor_i, 'image_path']
             distractor_choice = distractors.loc[distractor_i, 'choice']
+            distractor_rank = distractor_i + 1
             stimuli_triad = pd.DataFrame({  'target1': target1, 'target2': target2, 'distractor': distractor, 
-                                            'target1_rank': target1_index, 'target2_rank': target2_index, 'distractor_rank': distractor_i,
+                                            'target1_rank': target1_rank, 'target2_rank': target2_rank, 'distractor_rank': distractor_rank,
                                             'target1_choice': target1_choice, 'target2_choice': target2_choice, 'distractor_choice': distractor_choice,
                                             'targets_diff': diff}, index=[distractor_i])
             fmri_stimuli_df = pd.concat([fmri_stimuli_df, stimuli_triad], ignore_index=True)
