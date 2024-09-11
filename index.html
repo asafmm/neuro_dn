@@ -52,17 +52,21 @@
     while(sub_id==''){
       var sub_id = prompt('מספר נבדק:');
     } 
+    block_num = prompt('מספר בלוק:')
 
     var today = new Date()
     var date_string = today.toLocaleDateString("en-GB").replace(/\//g, '-') // creates date string with dd-mm-yyyy
-    var group = Math.random();
-    const INITIAL_FIXATION = 1000
+    
+    const INITIAL_FIXATION = 2000
     const SCALE_START = -5;
-    const MAX_RESPONSE = 10;
+    const MAX_RESPONSE = 4000;
+    const JITTER = 500;
+    const SOA = 10000;
+    // ITI = 6 sec jittered
+    // SOA = 10 sec
     const WTP_BAR_SIZE = 800;
     const SCLAESIZE = 900;
     const FIXATION_TIME = 500;
-    const JITTER = 150;
     const LABELS = ['-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'];
     const MAX_HEIGHT = 200;
     const MAX_WIDTH = 200;
@@ -72,38 +76,37 @@
     
     var preload = {
       type: jsPsychPreload,
-      images: [ 'stimuli/Zipperbigbag.PNG',
-                'stimuli/Zippersmallbag.PNG',
-                'stimuli/FuzeTea.PNG',
-                'stimuli/HEINZ.PNG',
-                'stimuli/Filtuna.PNG',
-                'stimuli/Smarties.PNG',
-                'stimuli/Sano99.PNG',
-                'stimuli/Colgate.PNG',
-                'stimuli/Cafeelite.PNG',
-                'stimuli/Tuna_ToGo.PNG',
-                'stimuli/Kikkoman.PNG',
-                'stimuli/Parachocolate.PNG',
-                'stimuli/Prince.PNG',
-                'stimuli/Wissotzky.PNG',
-                'stimuli/Chocolatemilk.PNG',
-                'stimuli/Splendid.PNG',
-                'stimuli/CocaCola2L.PNG',
-                'stimuli/Quaker.PNG',
-                'stimuli/Neviot.PNG',
-                'stimuli/KifKef.PNG',
-                'stimuli/Branflakes.PNG',
-                'stimuli/ChocolateSpread.PNG',
-                'stimuli/Fitness.PNG',
-                'stimuli/Baracke.PNG',
-                'stimuli/Milka.PNG',
-                'stimuli/YadMordechai.PNG',
-                'stimuli/Oreo.PNG',
-                'stimuli/Fitness_Chocolate.PNG',
-                'stimuli/Branflakesextra.PNG',
-                'stimuli/FuzeTeaGreen.PNG',
-                'stimuli/Tapuchips.PNG',
-                'stimuli/GelDeLin.PNG']
+      images: ['stimuli\\Barackemaybe.png',
+              'stimuli\\Branflakesextra.png',
+              'stimuli\\Cafeelite.png',
+              'stimuli\\Chocolatemilk.png',
+              'stimuli\\ChocolateSpread.png',
+              'stimuli\\CocaCola2L.png',
+              'stimuli\\Colgatemaybe.png',
+              'stimuli\\Filtunamaybe.png',
+              'stimuli\\Fitnessmaybe.png',
+              'stimuli\\Fitness_Chocolate.png',
+              'stimuli\\FuseTeaGreen.png',
+              'stimuli\\FuzeTea.png',
+              'stimuli\\GelDeLin.png',
+              'stimuli\\Heinz.png',
+              'stimuli\\KifKef.PNG',
+              'stimuli\\Kikkoman.png',
+              'stimuli\\Milka.PNG',
+              'stimuli\\Neviot.PNG',
+              'stimuli\\Oreo.PNG',
+              'stimuli\\ParaChocolate.png',
+              'stimuli\\Prince.PNG',
+              'stimuli\\Quakermaybe.png',
+              'stimuli\\Sano99.png',
+              'stimuli\\Smarties.PNG',
+              'stimuli\\Splendid.PNG',
+              'stimuli\\Tapuchips.PNG',
+              'stimuli\\Tuna_ToGo.png',
+              'stimuli\\Wissotzky.png',
+              'stimuli\\YadMordechai.png',
+              'stimuli\\Zipperbigbag.png',
+              'stimuli\\Zippersmallbag.png']
     }
     timeline.push(preload);
 
@@ -115,7 +118,7 @@
         stimulus: `
           <h1>ברוכים הבאים לניסוי!</h1>
           <p>במהלך הניסוי יוצגו בפניכם מוצרים בשלשות.
-          <p>עליכם לבחור את המוצר שהייתם רוצים לרכוש מבין השלושה בכל שלב.
+          <p>עליכם לבחור את המוצר המועדף עליכם.
           
           <br><br>לחצו רווח להמשך.</p>`,
         choices: [' '],
@@ -133,7 +136,13 @@
           trial_duration: function(){
             plus_minus = 1 + -2 * (Math.random()>0.5)
             random_jitter = Math.random()*JITTER
-            return FIXATION_TIME + plus_minus * random_jitter}
+            last_rt = jsPsych.data.get().last(1).values()[0].rt;
+            if (last_rt == null){
+              return SOA - MAX_RESPONSE + plus_minus * random_jitter
+            } else {
+              return SOA - last_rt + plus_minus * random_jitter
+            }
+            }
     }
     
       var example_part1 = {
@@ -144,9 +153,9 @@
         <br>&ensp;&ensp;&ensp;&ensp; "2" עבור המוצר האמצעי
         <br>&ensp;&ensp;&ensp;&ensp; "3" עבור המוצר הימני.</p>
         <p class="options">
-          <span><img src='stimuli/FuzeTeaGreen.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
-          <span><img src='stimuli/Tapuchips.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
-          <span><img src='stimuli/GelDeLin.png', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          <span><img src='stimuli/example/example1.PNG', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          <span><img src='stimuli/example/example2.PNG', height="${EXAMPLE_FACE_HEIGHT}"></span>
+          <span><img src='stimuli/example/example31.PNG', height="${EXAMPLE_FACE_HEIGHT}"></span>
         </p>`
         ,
         choices: ['1', '2', '3'],
@@ -187,54 +196,54 @@
                     // A B C
                     left_option = jsPsych.timelineVariable('target1');
                     middle_option = jsPsych.timelineVariable('target2');
-                    right_option = jsPsych.timelineVariable('distracter');
+                    right_option = jsPsych.timelineVariable('distractor');
                     // save the order
                     left_key = 'target1';
                     middle_key = 'target2';
-                    right_key = 'distracter';
+                    right_key = 'distractor';
                   } else if (random_order > 0.143 & random_order <= 0.286){
                     // A C B
                     left_option = jsPsych.timelineVariable('target1');
-                    middle_option = jsPsych.timelineVariable('distracter');
+                    middle_option = jsPsych.timelineVariable('distractor');
                     right_option = jsPsych.timelineVariable('target2');
                     // save the order
                     left_key = 'target1';
-                    middle_key = 'distracter';
+                    middle_key = 'distractor';
                     right_key = 'target2';
                   } else if (random_order > 0.286 & random_order <= 0.429){
                     // B A C
                     left_option = jsPsych.timelineVariable('target2');
                     middle_option = jsPsych.timelineVariable('target1');
-                    right_option = jsPsych.timelineVariable('distracter');
+                    right_option = jsPsych.timelineVariable('distractor');
                     // save the order
                     left_key = 'target2';
                     middle_key = 'target1';
-                    right_key = 'distrcater';
+                    right_key = 'distractor';
                   } else if (random_order > 0.429 & random_order <= 0.571){
                     // B C A
                     left_option = jsPsych.timelineVariable('target2');
-                    middle_option = jsPsych.timelineVariable('distracter');
+                    middle_option = jsPsych.timelineVariable('distractor');
                     right_option = jsPsych.timelineVariable('target1');
                     // save the order
                     left_key = 'target2';
-                    middle_key = 'distracter';
+                    middle_key = 'distractor';
                     right_key = 'target1';
                   } else if (random_order > 0.571 & random_order <= 0.714){
                     /// C A B
-                    left_option = jsPsych.timelineVariable('distracter');
+                    left_option = jsPsych.timelineVariable('distractor');
                     middle_option = jsPsych.timelineVariable('target1');
                     right_option = jsPsych.timelineVariable('target2');
                     // save the order
-                    left_key = 'distracter';
+                    left_key = 'distractor';
                     middle_key = 'target1';
                     right_key = 'target2';
                   } else if (random_order > 0.714){
                     // C B A
-                    left_option = jsPsych.timelineVariable('distracter');
+                    left_option = jsPsych.timelineVariable('distractor');
                     middle_option = jsPsych.timelineVariable('target2');
                     right_option = jsPsych.timelineVariable('target1');
                     // save the order
-                    left_key = 'distracter';
+                    left_key = 'distractor';
                     middle_key = 'target2';
                     right_key = 'target1';
                   }
@@ -258,12 +267,23 @@
                     </p>` 
                   return stim
           },
+        trial_duration: MAX_RESPONSE,
         choices: ['1', '2', '3'],
         data: {part: 'ternary',
               triad_index: jsPsych.timelineVariable('index'),
               one_key: function(){return left_key},
               two_key: function(){return middle_key},
               three_key: function(){return right_key},
+              target1: jsPsych.timelineVariable('target1'),
+              target2: jsPsych.timelineVariable('target2'),
+              distractor: jsPsych.timelineVariable('distractor'),
+              target1_rank: jsPsych.timelineVariable('target1_rank'),
+              target2_rank: jsPsych.timelineVariable('target2_rank'),
+              distractor_rank: jsPsych.timelineVariable('distractor_rank'),
+              target1_choice: jsPsych.timelineVariable('target1_choice'),
+              target2_choice: jsPsych.timelineVariable('target2_choice'),
+              distractor_choice: jsPsych.timelineVariable('distractor_choice'),
+              targets_diff: jsPsych.timelineVariable('targets_diff')
               },
           on_finish: function(data) {
                 var response = jsPsych.data.get().filter({part: 'ternary'}).last(1).select('response').values;
@@ -283,7 +303,7 @@
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
             return `<p>כעת נתחיל במטלה.
-              <br>אתם תראו שלושה מוצרים בכל פעם, ואתם מתבקשים לבחור את המוצר שתרצו לרכוש.
+              <br>אתם תראו שלושה מוצרים בכל פעם, ואתם מתבקשים את המוצר המועדף עליכם.
 
               <br><br>לחצו רווח כדי להתחיל את המטלה.</p>`
           },
@@ -297,7 +317,7 @@
           type: jsPsychHtmlKeyboardResponse,
           stimulus: function(){
             return `<p>בלוק נגמר. 
-              <br>לחץ רווח להמשיך לבלוק הבא.</p>`
+              </p>`
           },
           choices: [' '],
           data: {part: 'manual_scan_wait'},
@@ -307,32 +327,58 @@
 
     var real_task = {
       timeline: [choice_trial, fixation],
-      timeline_variables: image_stimuli,
+      timeline_variables: image_stimuli.slice(0, 2),
       randomize_order: true
     };
+
+    var initial_fixation = {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '<p style="text-align: center;">+</p>',
+          choices: 'NO_KEYS',
+          data: {part: 'fixation'},
+          trial_duration: INITIAL_FIXATION
+    }
+
+    var manual_pause = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p>בלוק נגמר.</p>`
+      },
+      choices: [' '],
+      data: {part: 'manual_scan_wait'},
+      post_trial_gap: 0,
+      on_finish: function(){
+        jsPsych.data.get().localSave('csv', `${block_num}_${date_string}_${sub_id}.csv`);
+      }
+    };
+
+    var delay = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '',
+      choices: "NO_KEYS",
+      data: {part: 'delay'},
+      trial_duration: 700
+    }
+
+    var wait_for_scan_initial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function(){
+        return `<p style="text-align: center;">מיד מתחילים.</p>`
+      },
+      choices: ['5', 't'],
+      data: {part: 'scan_wait'},
+      post_trial_gap: 0
+    };
+
     timeline.push(example_part1);
     timeline.push(post_example1);
     timeline.push(pre_task);
-    timeline.push(fixation);
+    timeline.push(wait_for_scan_initial);
+    timeline.push(initial_fixation);
     timeline.push(real_task);
-    timeline.push(block_break);
-    timeline.push(fixation);
-    timeline.push(real_task);
-    // timeline.push(block_break);
-    // timeline.push(fixation);
-    // timeline.push(real_task);
-
-    var post_task = {
-          type: jsPsychHtmlKeyboardResponse,
-          stimulus: function(){
-            return `<p>כל הכבוד! סיימתם את הניסוי!</p>`
-          },
-          choices: ['p'],
-          data: {part: 'manual_scan_wait'},
-          allow_click: false,
-          post_trial_gap: 250
-    };
-    timeline.push(post_task);
+    timeline.push(initial_fixation);
+    timeline.push(delay);
+    timeline.push(manual_pause);
 
     jsPsych.run(timeline);
   </script>

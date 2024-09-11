@@ -1,0 +1,4 @@
+﻿TrialNumber,image,ran,order,view_time,slider_time,end_time,rt,choice,mouse_start,image_path,block,wait_time
+1,stimuli/example\example31.png,1.0,0.0,24.582108,25.616858,27.111582,1.5280917,28.0,18.0,stimuli/example\example31.png,0.0,-1.2998978
+2,stimuli/example\example33.png,1.0,1.0,27.657349,28.691998,29.21273,0.5532122,73.0,84.0,stimuli/example\example33.png,0.0,-0.4502796
+3,stimuli/example\example32.png,1.0,2.0,29.765514,30.800276,31.311878,0.5454603,54.0,52.0,stimuli/example\example32.png,0.0,-0.28921872

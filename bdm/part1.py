@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import random
+import glob
 import os
 import numpy as np 
 import pandas as pd
@@ -13,7 +14,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 TEXT_COLOR = "#D5D5D5"
 BACKGROUND_COLOR = "#1C1C1C"
 FONT = 'Arial'
-MAX_WTP = 80
+MAX_WTP = 100
 N_TRIALS = 3
 TEXT_SIZE = 40
 SLIDER_WIDTH = 500
@@ -25,12 +26,14 @@ TEXT_STIM_KWARGS = {'height':TEXT_SIZE,
                     'color':TEXT_COLOR, 
                     'languageStyle':'RTL',
                     'font':FONT}
+
 FIXATION_TIME = 0.2
 JITTER_FIXATION = 0.2
 INITAL_FIXATION_TIME = 0.5
 SLIDER_DELAY = 1
-MAX_DURATION = 1
-SOA = 0.5
+# no time limit
+MAX_DURATION = None
+SOA = 0.2
 CLOCK = core.Clock()
 MAX_IMAGE_WIDTH = 250
 MAX_IMAGE_HEIGHT = 250
@@ -42,6 +45,12 @@ def resize_image(image_path):
     new_width = int(width / ratio)
     new_height = int(height / ratio)
     return new_width, new_height
+
+def create_product_object(product, product_path):
+    product_new_size = resize_image(product_path)
+    product.setImage(product_path)
+    product.setSize(product_new_size)
+    return product
 
 def display_instructions(mouse, win, instruction, headline=None):
     while True:
@@ -64,7 +73,7 @@ def reverse_normalize_mouse_loc(norm_loc):
     reverse_loc = norm_loc * SLIDER_WIDTH / MAX_WTP - SLIDER_WIDTH/2 
     return reverse_loc
 
-def display_slider(mouse, win, slider, product, instructions=None, delay=True, is_demo_trial=False, trials=None):
+def display_slider(mouse, win, slider, product, instructions=None, delay=True, is_demo_trial=False, trials=None, block_num=0):
     if instructions is not None:
         instructions.draw()
     # save time of presenting the stimuli
@@ -81,7 +90,7 @@ def display_slider(mouse, win, slider, product, instructions=None, delay=True, i
     mouse.clickReset()
     first_slider_time = None
     rt = None
-    while is_demo_trial or (mouse.mouseClock.getTime() < MAX_DURATION):
+    while True:
         if instructions is not None:
             instructions.draw()
         product.draw()
@@ -128,7 +137,8 @@ def display_slider(mouse, win, slider, product, instructions=None, delay=True, i
                 'rt':rt,
                 'choice':mouse_loc,
                 'mouse_start':mouse_random_start,
-                'image_path':product.image
+                'image_path':product.image,
+                'block':block_num
                 }
     return trial_data_dict
 
@@ -167,11 +177,20 @@ def display_blank(win, trials):
     return blank_trial_dict
 
 if __name__=='__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--instructions', dest='instructions', action='store_true')
-    parser.add_argument('-b', '--block', type=int, help='block number (1-5)', dest='block_num')
-    parser.add_argument('-s', '--subject', type=str, help='subject number', dest='subject_num')
-    args = parser.parse_args()
+    dialouge = gui.Dlg(title="Subject number:")
+    dialouge.addText('Subject info')
+    dialouge.addField('Subject number:')
+    dialouge.addField('Age:')
+    dialouge.addField('Handedness:', choices=['Right', 'Left', 'Ambidextrous'])
+    dialouge.show()
+    if dialouge.OK:
+        pass
+    else:
+        core.quit()
+    subject_num = dialouge.data[0]
+    subject_age = dialouge.data[1]
+    subject_handedness = dialouge.data[2]
+
     # setup the experiment window
     win = visual.Window([WINDOW_WIDTH, WINDOW_HEIGHT], color=BACKGROUND_COLOR, units='pix', pos=(0, 10), fullscr=True)
     # win = visual.Window([1920, 1080], color=BACKGROUND_COLOR, units='pix', fullscr=True)
@@ -199,225 +218,213 @@ if __name__=='__main__':
     # mouse
     mouse = event.Mouse(win=win, visible=False)
     _thisDir = os.getcwd()
-    if args.instructions:
-        CLOCK.reset()
-        # welcome
-        welcome_headline = '''שלום וברוכים הבאים!'''
-        welcome_headline_stim = visual.TextStim(win, text=welcome_headline, pos=(0, 120), height=1.2*TEXT_SIZE, wrapWidth=WRAP_WITDH, 
-                                                    color=TEXT_COLOR, languageStyle='RTL', font=FONT, alignText='center', bold=True)
-        instruction_text = '''
+
+    CLOCK.reset()
+    # welcome
+    welcome_headline = '''שלום וברוכים הבאים!'''
+    welcome_headline_stim = visual.TextStim(win, text=welcome_headline, pos=(0, 120), height=1.2*TEXT_SIZE, wrapWidth=WRAP_WITDH, 
+                                                color=TEXT_COLOR, languageStyle='RTL', font=FONT, alignText='center', bold=True)
+    instruction_text = '''
 לפניכם ניסוי בקבלת החלטות.
 לחצו על העכבר כדי להמשיך.'''
-        instruction_stim = visual.TextStim(win, instruction_text, pos=(0, -50), alignText='center', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, instruction_stim, headline=welcome_headline_stim)
-        core.wait(0.7)
+    instruction_stim = visual.TextStim(win, instruction_text, pos=(0, -50), alignText='center', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, instruction_stim, headline=welcome_headline_stim)
+    core.wait(0.7)
 
-        # instrcutions
-        instruction_2_headline = '''הוראות'''
-        instruction_2_headline_stim = visual.TextStim(win, text=instruction_2_headline, pos=(0, 120), height=1.2*TEXT_SIZE, wrapWidth=WRAP_WITDH, 
-                                                    color=TEXT_COLOR, languageStyle='RTL', font=FONT, alignText='center', bold=True)
-        instruction_2_text = '''בקרוב יוצגו בפניכם הגרלות.
-עליכם לבחור את המחיר המירבי שתהיו מוכנים לשלם כדי להשתתף בהגרלה שתוצג.
-יש לכם תקציב של ₪80 לכל הגרלה. 
+    # instrcutions
+    instruction_2_headline = '''הוראות'''
+    instruction_2_headline_stim = visual.TextStim(win, text=instruction_2_headline, pos=(0, 120), height=1.2*TEXT_SIZE, wrapWidth=WRAP_WITDH, 
+                                                color=TEXT_COLOR, languageStyle='RTL', font=FONT, alignText='center', bold=True)
+    instruction_2_text = '''בקרוב יוצגו בפניכם מוצרים, אחד אחרי השני.
+עליכם לבחור את המחיר המירבי שתהיו מוכנים לשלם על המוצר.
+יש לכם תקציב של ₪100 לכל מוצר. 
 
-נסו להעריך כל הגרלה בנפרד ולחשוב כמה היא שווה עבורכם. ₪80 זמינים לכל הגרלה בנפרד.
+נסו להעריך כל מוצר בנפרד ולחשוב כמה הוא שווה עבורכם. ₪100 זמינים לכל מוצר בנפרד.
 
 לחצו על העכבר כדי להמשיך.'''
-        instruction_2_stim = visual.TextStim(win, text=instruction_2_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, instruction_2_stim, instruction_2_headline_stim)
-        core.wait(0.7)
+    instruction_2_stim = visual.TextStim(win, text=instruction_2_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, instruction_2_stim, instruction_2_headline_stim)
+    core.wait(0.7)
 
-        instruction_3_text = '''בסוף הניסוי, המחשב יבחר את אחת ההגרלות ויקבע מחיר לכרטיס עבורה.
+    instruction_3_text = '''בסוף הניסוי, המחשב יבחר את אחד המוצרים ויקבע מחיר עבורו.
 
 אם המחיר שבחרתם נמוך מהמחיר שנקבע על ידי המחשב, 
-לא תשתתפו בהגרלה ותישארו עם כל התקציב.
+לא תקבלו את המוצר ותישארו עם כל התקציב.
 אם המחיר שבחרתם גבוה מהמחיר שנקבע על ידי המחשב,
-תשלמו את המחיר שנקבע ותשתתפו בהגרלה.
+תשלמו את המחיר שנקבע ותקבלו את המוצר.
 
 לחצו על העכבר כדי להמשיך.'''
-        instruction_3_stim = visual.TextStim(win, text=instruction_3_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, instruction_3_stim)
-        core.wait(0.7)
+    instruction_3_stim = visual.TextStim(win, text=instruction_3_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, instruction_3_stim)
+    core.wait(0.7)
 
-        # BDM example 1
-        example_1_text = f'''נתחיל עם דוגמא:
-ההגרלה מטה מציעה 65% סיכוי לזכות ב-₪40 ו-35% סיכוי לזכות ב-₪0.
-
-מה המחיר המירבי שתהיו מוכנים לשלם על כרטיס להגרלה זו בין 0 ל-₪{MAX_WTP}?
+    # BDM example 1
+    example_1_text = f'''נתחיל עם דוגמא:
+מה המחיר המירבי שתהיו מוכנים לשלם על המוצר הזה בין 0 ל-₪{MAX_WTP}?
 הזיזו את העכבר על פני המלבן ולחצו כדי לבצע בחירה.'''
-        example_1_stim = visual.TextStim(win, text=example_1_text, pos=(0, 100), alignText='right', **TEXT_STIM_KWARGS)
-        example_amount = visual.TextStim(win, text=f"₪40", height=TEXT_SIZE, pos=slider_example1.pos+(0, 150), color=TEXT_COLOR)
-        example_prob = visual.TextStim(win, text=f"65%", height=TEXT_SIZE, pos=slider_example1.pos+(0, 100), color=TEXT_COLOR)
-        event.Mouse(visible=False)
-        trial_data_dict = display_slider(mouse, win, slider_example1, example_amount, example_prob, instructions=example_1_stim, delay=False, is_demo_trial=True)
-        example_1_choice = trial_data_dict['choice']
-        core.wait(0.7)
-        ##
-        example_1_feedback_text = f'''יפה מאוד!
-בחרתם שתהיו מוכנים לשלם ₪{example_1_choice} כדי להשתתף בהגרלה. נשמע נכון?
+    example_1_stim = visual.TextStim(win, text=example_1_text, pos=(0, 150), alignText='right', **TEXT_STIM_KWARGS)
+    # example_amount = visual.TextStim(win, text=f"₪40", height=TEXT_SIZE, pos=slider_example1.pos+(0, 150), color=TEXT_COLOR)
+    # example_prob = visual.TextStim(win, text=f"65%", height=TEXT_SIZE, pos=slider_example1.pos+(0, 100), color=TEXT_COLOR)
+    example_product = visual.ImageStim(win, pos=slider_example1.pos+(0, 250))
+    event.Mouse(visible=False)
+    example_product_1 = create_product_object(example_product, 'stimuli/example/example1.png')
+    trial_data_dict = display_slider(mouse, win, slider_example1, example_product_1, example_1_stim, is_demo_trial=True, delay=False)
+    example_1_choice = trial_data_dict['choice']
+    core.wait(0.7)
+    ##
+    example_1_feedback_text = f'''יפה מאוד!
+בחרתם שתהיו מוכנים לשלם ₪{example_1_choice} עבור המוצר. נשמע נכון?
 
-כעת נניח שהגרלה זו נבחרה בסוף הניסוי.
-המחשב יקבע מחיר עבורה באקראי.
+כעת נניח שהמוצרה הזה נבחר בסוף הניסוי.
+המחשב יקבע עבורו מחיר באקראי.
 
 לחצו על העכבר להמשך.'''
-        example_1_feedback_stim = visual.TextStim(win, text=example_1_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_1_feedback_stim)
-        core.wait(0.7)
-        ##
-        random_price = random.randint(0, example_1_choice)
+    example_1_feedback_stim = visual.TextStim(win, text=example_1_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, example_1_feedback_stim)
+    core.wait(0.7)
+    ##
+    random_price = random.randint(0, example_1_choice)
 
-        if random_price == example_1_choice:
-            example_1_lower_or_equal = f'''המחיר שנקבע זהה לזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותשתתפו בהגרלה.'''
-        else:
-            example_1_lower_or_equal = f'''המחיר שנקבע נמוך מזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותשתתפו בהגרלה.'''
+    if random_price == example_1_choice:
+        example_1_lower_or_equal = f'''המחיר שנקבע זהה לזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותקבלו את המוצר.'''
+    else:
+        example_1_lower_or_equal = f'''המחיר שנקבע נמוך מזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותקבלו את המוצר.'''
 
-        example_1_price_text = f'''המחשב קבע מחיר: ₪{random_price}
+    example_1_price_text = f'''המחשב קבע מחיר: ₪{random_price}
 ואתם בחרתם לשלם לכל היותר: ₪{example_1_choice}
 
 ''' + example_1_lower_or_equal + f'''
-במקרה כזה, תסיימו את הניסוי עם תקציב של ₪{80 - random_price} ועם סיכוי לזכות ב-₪40 נוספים מההגרלה.
-כלומר, תוכלו לקבל ₪{80 - random_price} אם לא תזכו בהגרלה, או ₪{80 - random_price + 40} אם תזכו בהגרלה.
+במקרה כזה, תסיימו את הניסוי עם תקציב של ₪{MAX_WTP - random_price} ועם המוצר.
 
 לחצו על העכבר להמשך.'''
-        example_1_price_stim = visual.TextStim(win, text=example_1_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_1_price_stim)
-        core.wait(0.7)
-        # BDM example 2
-        example_2_text = f'''הנה עוד דוגמא:
-ההגרלה מטה מציעה 35% סיכוי לזכות ב-₪18, ו-65% סיכוי לזכות ב-₪0.'''
-        example_2_stim = visual.TextStim(win, text=example_2_text, pos=(0, 100), alignText='right', **TEXT_STIM_KWARGS)
-        example_amount = visual.TextStim(win, text=f"₪18", height=TEXT_SIZE, pos=slider_example2.pos+(0, 150), color=TEXT_COLOR)
-        example_prob = visual.TextStim(win, text=f"35%", height=TEXT_SIZE, pos=slider_example2.pos+(0, 100), color=TEXT_COLOR)
-        trial_data_dict = display_slider(mouse, win, slider_example2, example_amount, example_prob, example_2_stim, is_demo_trial=True, delay=False)
-        example_2_choice = trial_data_dict['choice']
-        core.wait(0.7)
-        ##
-        example_2_feedback_text = f'''בחרתם שתהיו מוכנים לשלם ₪{example_2_choice} כדי להשתתף בהגרלה.
+    example_1_price_stim = visual.TextStim(win, text=example_1_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, example_1_price_stim)
+    core.wait(0.7)
 
-נניח שהגרלה זו נבחרה בסוף הניסוי.
-כעת המחשב יקבע עבורה מחיר באקראי.
+    # BDM example 2
+    example_2_text = f'''הנה עוד דוגמא.'''
+    example_2_stim = visual.TextStim(win, text=example_2_text, pos=(0, 250), alignText='right', **TEXT_STIM_KWARGS)
+    example_product_2 = visual.ImageStim(win, pos=slider_example2.pos+(0, 250))
+    example_product_2 = create_product_object(example_product_2, 'stimuli/example/example2.png')
+    trial_data_dict = display_slider(mouse, win, slider_example2, example_product_2,  example_2_stim, is_demo_trial=True, delay=False)
+    example_2_choice = trial_data_dict['choice']
+    core.wait(0.7)
+    ##
+    example_2_feedback_text = f'''בחרתם שתהיו מוכנים לשלם ₪{example_2_choice} עבור המוצר.
+
+נניח שהמוצר הזה נבחר בסוף הניסוי.
+כעת המחשב יקבע עבורו מחיר באקראי.
 
 לחצו על העכבר להמשך.'''
-        example_2_feedback_stim = visual.TextStim(win, text=example_2_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_2_feedback_stim)
-        core.wait(0.7)
-        ##
-        random_price = random.randint(example_2_choice+1, MAX_WTP)
-        example_2_price_text = f'''המחשב קבע מחיר: ₪{random_price}
+    example_2_feedback_stim = visual.TextStim(win, text=example_2_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, example_2_feedback_stim)
+    core.wait(0.7)
+    ##
+    random_price = random.randint(example_2_choice+1, MAX_WTP)
+    example_2_price_text = f'''המחשב קבע מחיר: ₪{random_price}
 ואתם בחרתם לשלם לכל היותר: ₪{example_2_choice}
 
-מכיוון שהמחיר שבחרתם נמוך מהמחיר שנקבע, לא תשתתפו בהגרלה.
-במקרה כזה, בסוף הניסוי תקבלו את כל התקציב ההתחלתי של ₪80.
+מכיוון שהמחיר שבחרתם נמוך מהמחיר שנקבע, לא תקבלו את המוצר.
+במקרה כזה, בסוף הניסוי תקבלו את כל התקציב ההתחלתי של ₪{MAX_WTP}.
 
 לחצו על העכבר להמשך.'''
-        example_2_price_stim = visual.TextStim(win, text=example_2_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_2_price_stim)
-        core.wait(0.7)
+    example_2_price_stim = visual.TextStim(win, text=example_2_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, example_2_price_stim)
+    core.wait(0.7) 
 
-        # BDM example 3 - with time limit
-        example_3_text = f'''במהלך הניסוי, קודם תראו את ההגרלה ורק לאחר מכן תוכלו לבחור.
-כמו כן, יהיו לכם מספר שניות מוגבל להגיב.
-בואו נראה איך זה נראה.
-
-לחצו על העכבר כדי להתחיל באימון.'''
-        example_3_stim = visual.TextStim(win, text=example_3_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_3_stim)
-        core.wait(0.7)
-        #
-        example_amount = visual.TextStim(win, text=f"₪21", height=TEXT_SIZE, pos=slider.pos+(0, 150), color=TEXT_COLOR)
-        example_prob = visual.TextStim(win, text=f"65%", height=TEXT_SIZE, pos=slider.pos+(0, 100), color=TEXT_COLOR)
-        display_fixation(win)
-        trial_data_dict = display_slider(mouse, win, slider, example_amount, example_prob)
-        example_3_choice = trial_data_dict['choice']
-        example_3_rt = trial_data_dict['rt']
-        core.wait(0.7)
-
-        if example_3_rt is None:
-            example_3_feedback_text = f'''לא הגבתם בזמן המוקצב לתגובה. 
-נסו להגיב מהר יותר בפעם הבאה!
-
-לחצו על העכבר כדי להמשיך באימון.'''
+    # examples 4-8
+    example_paths = glob.glob('stimuli/example/example3*.png')
+    example_conditions = data.importConditions(_thisDir + os.sep + 'example_stimuli.csv')
+    trials = data.TrialHandler(trialList=example_conditions, nReps=1)
+    TEXT_SIZE = 60
+    SLIDER_WIDTH = 600
+    product = visual.ImageStim(win, pos=slider.pos+(0, 250))
+    choices = np.zeros(len(example_paths)) 
+    rts = np.zeros(len(example_paths))
+    for trial in trials:
+        display_fixation(win, initial=True)
+        product_path = trial['image']
+        product = create_product_object(product, product_path)
+        trial_data_dict = display_slider(mouse, win, slider, product, trials=trials)
+        trials = save_trial_data(trial_data_dict, trials)
+        trial_rt = trial_data_dict['rt']
+        if trial_rt is None:
+            fixation_time = SOA - MAX_DURATION
         else:
-            example_3_feedback_text = f'''יפה. הפעם בחרתם לשלם לכל היותר ₪{example_3_choice}.
-לחצו על העכבר כדי להמשיך באימון.'''
-        example_3_feedback_stim = visual.TextStim(win, text=example_3_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, example_3_feedback_stim)
-        core.wait(0.7)    
-
-        # examples 4-8
-        amounts = [60, 14, 35, 74, 27]
-        probs = [20, 75, 55, 45, 15]
-        conditions = data.importConditions(_thisDir + os.sep + '../stimuli.csv')
-        trials = data.TrialHandler(trialList=conditions, nReps=1)
-        TEXT_SIZE = 60
-        SLIDER_WIDTH = 600
-        product = visual.ImageStim(win, pos=slider.pos+(0, 120))
-        choices = np.zeros(len(amounts))
-        rts = np.zeros(len(amounts))
-        for trial in trials:
-            display_fixation(win, initial=True)
-            product_path = trial['image']
-            product_new_size = resize_image(product_path)
-            product.setImage(product_path, size=product_new_size)
-            trial_data_dict = display_slider(mouse, win, slider, product, trials=trials)
-            trials = save_trial_data(trial_data_dict, trials)
-            trial_rt = trial_data_dict['rt']
-            if trial_rt is None:
-                fixation_time = SOA - MAX_DURATION
-            else:
-                fixation_time = SOA - trial_rt
-            wait_time = display_fixation(win, initial=False, fixation_time=fixation_time, trials=trials)
-            trials.addData('wait_time', wait_time)
-        trials.saveAsWideText(f'data/instruction_results.csv', delim=',', appendFile=False)
-        print(trials.data['rt'])
-        # pre-start
-        end_practice = f'''סיימתם את האימון!
+            fixation_time = SOA - trial_rt
+        wait_time = display_fixation(win, initial=False, fixation_time=fixation_time, trials=trials)
+        trials.addData('wait_time', wait_time)
+    trials.saveAsWideText(f'data/instruction_results.csv', delim=',', appendFile=False)
+    print(trials.data['rt'])
+    display_fixation(win, initial=False, fixation_time=fixation_time, trials=trials)
+    core.wait(0.7) 
+    # pre-start
+    end_practice = f'''סיימתם את האימון!
 
 כעת נתחיל את הניסוי.
-אתם תראו הגרלות ותתבקשו לבחור כמה תהיו מוכנים לשלם כדי להשתתף בהן.
-יש לכם תקציב של ₪80 עבור כל הגרלה.
-בסוף הניסוי הגרלה אחת תבחר באקראי ותשוחק.
+אתם תראו מוצרים ותתבקשו לבחור כמה תהיו מוכנים לשלם עבורם.
+יש לכם תקציב של ₪{MAX_WTP} עבור כל מוצר.
+בסוף הניסוי מוצר אחד ייבחר באקראי.
 
 לחצו על העכבר כדי להתחיל את הניסוי.'''
-        end_practice_stim = visual.TextStim(win, text=end_practice, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
-        display_instructions(mouse, win, end_practice_stim)
-        core.wait(0.7)
+    end_practice_stim = visual.TextStim(win, text=end_practice, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
+    display_instructions(mouse, win, end_practice_stim)
+    core.wait(0.7)
 
-    elif (args.block_num>=1) & (args.block_num<=5):
-        TEXT_SIZE = 60
-        SLIDER_WIDTH = 600
-        conditions = data.importConditions(_thisDir + os.sep + 'stimuli.csv')
-        trials = data.TrialHandler(trialList=conditions, nReps=1, method='random')
-        expInfo = {
-            'participant': args.subject_num,
-            'block': args.block_num,
-        }
-        exp_name = 'neuro_DN'
-        expInfo['date'] = data.getDateStr()  # add a simple timestamp
-        expInfo['expName'] = exp_name
-        filename = _thisDir + os.sep + f"data/{exp_name}_{expInfo['participant']}_{expInfo['block']}"
-        os.chdir(_thisDir)
-        # wait for scanner
-        pre_start_text = f'''מיד מתחילים.'''
-        pre_start_stim = visual.TextStim(win, text=pre_start_text, pos=(0, 0), alignText='center', height=TEXT_SIZE, 
-                                         wrapWidth=WRAP_WITDH, color=TEXT_COLOR, languageStyle='RTL', font=FONT)
-        pre_start_stim.draw()
-        win.flip()
-        keys = event.waitKeys(keyList = ['t', '5'])
+    ### start of real experiment ###
 
-        choices = np.zeros(len(conditions))
-        rts = np.zeros(len(conditions))
-        product = visual.ImageStim(win, pos=slider.pos+(0, 250))
-        CLOCK.reset()
-        i = 0
+    # load data and parameters
+    TEXT_SIZE = 60
+    SLIDER_WIDTH = 600
+    blocks = 2
+    if _thisDir[-3:]=='bdm':
+        stimuli_files = glob.glob('../stimuli/*.png')
+        # go one dir up
+        conditions_path = _thisDir + os.sep + '..' + os.sep + 'stimuli.csv'
+    else:
+        stimuli_files = glob.glob('stimuli/*.png')
+        conditions_path = _thisDir + os.sep + 'stimuli.csv' 
+    # save stimuli to csv
+    stimuli_df = pd.DataFrame({'image':stimuli_files})
+    stimuli_df.to_csv(conditions_path)
+    conditions = data.importConditions(conditions_path)
+    expInfo = {
+        'participant': subject_num,
+        'age': subject_age,
+        'handedness': subject_handedness
+    }
+    exp_name = 'neuro_DN'
+    expInfo['date'] = data.getDateStr()  # add a simple timestamp
+    expInfo['expName'] = exp_name
+    subject_dir = _thisDir + os.sep + 'data' + os.sep + subject_num
+    os.mkdir(subject_dir)
+    filename = subject_dir + os.sep + f"{exp_name}_{expInfo['participant']}"
+    os.chdir(_thisDir)
+
+    choices = np.zeros(len(conditions))
+    rts = np.zeros(len(conditions))
+    product = visual.ImageStim(win, pos=slider.pos+(0, 250))
+    CLOCK.reset()
+    
+    for block_i in range(2):
         display_fixation(win, initial=True)
-        for trial in trials:
+        core.wait(0.7)
+        # present block start screen
+        block_num = block_i + 1
+        block_trials = data.TrialHandler(trialList=conditions, nReps=1, method='random')
+        block_start_text = f'''בלוק {block_num}.\n לחצו כדי להמשיך.'''
+        # trials in random order for each block
+        block_start_stim = visual.TextStim(win, text=block_start_text, pos=(0, 0), alignText='center', height=TEXT_SIZE, 
+                                        wrapWidth=WRAP_WITDH, color=TEXT_COLOR, languageStyle='RTL', font=FONT)
+        display_instructions(mouse, win, block_start_stim)
+        core.wait(0.7)
+        display_fixation(win, initial=True)
+        i = 0
+        for trial in block_trials:
             product_path = trial['image']
-            product_new_size = resize_image(product_path)
-            product.setImage(product_path)
-            product.setSize(product_new_size)
-            trial_data_dict = display_slider(mouse, win, slider, product, trials=trials)
-            trials = save_trial_data(trial_data_dict, trials)
+            product = create_product_object(product, product_path)
+            trial_data_dict = display_slider(mouse, win, slider, product, trials=block_trials, block_num=block_num)
+            trials = save_trial_data(trial_data_dict, block_trials)
             trial_rt = trial_data_dict['rt']
             if trial_rt is None:
                 fixation_time = SOA - MAX_DURATION
@@ -426,32 +433,107 @@ if __name__=='__main__':
             wait_time = display_fixation(win, initial=False, fixation_time=fixation_time, trials=trials)
             trials.addData('wait_time', wait_time)
             i += 1
-        num_missed = np.sum(pd.isna(trials.data['rt']))
-        print(f'Missed: {num_missed}')
-        trials.saveAsWideText(filename+'.csv', delim=',', appendFile=False)
+        trials.addData('subject', subject_num)
+        trials.addData('age', subject_age)
+        trials.addData('handedness', subject_handedness)
+        # save block data to csv
+        trials.saveAsWideText(f'{filename}_block{block_num}.csv', delim=',', appendFile=False)
 
-        # analyze subject's choices and create csv for fMRI
-        analyzed_data = pd.DataFrame({'image':trials.data['image_path'], 'choice':trials.data['choice']})
-        # sort product by choice
-        analyzed_data.sort_values(by='choice', ascending=False, inplace=True)
-        # take top 10 to be targets
-        targets_1 = analyzed_data.iloc[:10:2]
-        targets_2 = analyzed_data.iloc[1:10:2]
-        # take next 20 to be distractors
-        distractors = analyzed_data.iloc[10:20:2]
-        stimuli_df = pd.DataFrame({'target1':targets_1.image_path.values, 'target1_rating':targets_1.choice.values,
-                                   'target2':targets_2.image_path.values, 'target2_rating':targets_2.choice.values,
-                                   'distracter':distractors.image_path.values, 'distracter_rating':distractors.choice.values})
-        stimuli_df.to_csv(filename+'_fMRI.csv', index=False)
+    # read subject's data
+    block_data_files = glob.glob(f'{filename}_block*.csv')
+    experiment_data = pd.DataFrame([])
+    for block_file in block_data_files:
+        block_data = pd.read_csv(block_file, index_col=0)
+        experiment_data = pd.concat([experiment_data, block_data])
+    # average responses over blocks
+    avg_product_choices = experiment_data[['image_path', 'choice']].groupby('image_path').mean()
+    # sort products from highest (0) to lowset (-1)
+    avg_product_choices = avg_product_choices.sort_values(by='choice', ascending=False)
+    avg_product_choices = avg_product_choices.reset_index()
+    # choose target products, the first 10 
+    targets = avg_product_choices.iloc[:10]
 
-        if args.block_num != 5:
-            end_text = f'''נגמר הבלוק.'''
-        else:
-            end_text = f'''כל הכבוד! סיימתם את החלק הזה.'''
-        end_text_stim = visual.TextStim(win, text=end_text, pos=(0, -50), alignText='center', **TEXT_STIM_KWARGS)
-        end_text_stim.draw()
-        win.flip()
-        keys = event.waitKeys(keyList = ['space', 'enter', 'escape'])
+    # choose 2 targets with diffs of 9, 7, 6, 5, 3, 1
+    # define the differences between targets that we want to choose
+    diffs = [9, 7, 6, 5, 3, 1]
+    # get indices corresponding to each kind of diff from the targets, i.e., 1 and 10 for diff==9, 3 and 9 for diff==6, etc.
+    target_indices = []
+    for diff in diffs:
+        target_diff_indices = []
+        for i in range(len(targets)):
+            if i + diff < len(targets):
+                diff_array = np.array([i, i + diff, diff])
+                target_diff_indices.append(diff_array)
+        target_indices = target_indices + target_diff_indices
+
+    # choose one randomly diff index for each diff, minimizing the amount of products that will be selected more than once
+    target_indices = np.array(target_indices)
+    target_indices_df = pd.DataFrame(target_indices, columns=['target1', 'target2', 'diff'])
+    selected_indices = {diff: np.array([]) for diff in diffs}
+    selected_products = set()
+    product_counts = {product: 0 for product in range(len(targets))}
+    for diff in diffs:
+        # get indices with the current diff
+        diff_indices = target_indices_df[target_indices_df['diff'] == diff].copy()
+        # remove selected products from the diff indices
+        least_selected_products = diff_indices[~diff_indices['target1'].isin(selected_products) & ~diff_indices['target2'].isin(selected_products)]
+        # if all products have been selected at least once, choose the least selected pair
+        if least_selected_products.empty:
+            diff_indices.loc[:, 'target1_count'] = diff_indices['target1'].apply(lambda x: product_counts[x])
+            diff_indices.loc[:, 'target2_count'] = diff_indices['target2'].apply(lambda x: product_counts[x])
+            diff_indices.loc[:, 'pair_count'] = diff_indices['target1_count'] + diff_indices['target2_count']
+            # get the pairs with minimal pair count
+            minimal_count = diff_indices['pair_count'].min()
+            least_selected_products = diff_indices[diff_indices['pair_count'] == minimal_count]
+        # ranodmlly choose one of the least selected pairs
+        least_selected_products = least_selected_products.sample()
+        # save targets indices
+        target1, target2 = least_selected_products['target1'].values[0], least_selected_products['target2'].values[0]
+        selected_indices[diff] = np.array([target1, target2])
+        # save selected products, increase count
+        selected_products.add(target1)
+        selected_products.add(target2)
+        product_counts[target1] += 1
+        product_counts[target2] += 1
+
+    # save the selected target indices
+    target_index_pair_df = pd.DataFrame(selected_indices, index=['target1', 'target2']).T
+    # take next 20 to be distractors
+    # choose 6 out of 20 distractors, with equal jumps of 4
+    distractors = avg_product_choices.iloc[10::4]
+    # construct the final stimuli dataframe
+    fmri_stimuli_df = pd.DataFrame([], columns=['target1', 'target2', 'distractor', 
+                                                'target1_rank', 'target2_rank', 'distractor_rank', 
+                                                'target1_choice', 'target2_choice', 'distractor_choice', 
+                                                'targets_diff'])
+    # for each target pair, add all 6 distractors
+    for diff in target_index_pair_df.index:
+        target1_index, target2_index = target_index_pair_df.loc[diff]
+        target1 = targets.loc[target1_index, 'image_path']
+        target2 = targets.loc[target2_index, 'image_path']
+        target1_choice = targets.loc[target1_index, 'choice']
+        target2_choice = targets.loc[target2_index, 'choice']
+        for distractor_i in distractors.index:
+            distractor = distractors.loc[distractor_i, 'image_path']
+            distractor_choice = distractors.loc[distractor_i, 'choice']
+            stimuli_triad = pd.DataFrame({  'target1': target1, 'target2': target2, 'distractor': distractor, 
+                                            'target1_rank': target1_index, 'target2_rank': target2_index, 'distractor_rank': distractor_i,
+                                            'target1_choice': target1_choice, 'target2_choice': target2_choice, 'distractor_choice': distractor_choice,
+                                            'targets_diff': diff}, index=[distractor_i])
+            fmri_stimuli_df = pd.concat([fmri_stimuli_df, stimuli_triad], ignore_index=True)
+    fmri_stimuli_df.to_csv(filename+'_fMRI.csv', index=False)
+    # write to json and turn to js for the next part
+    json_format = fmri_stimuli_df.to_json(orient='records')
+    js_format = f'var image_stimuli = [{json_format}]'.replace('\\\\', '\\')
+    # write js
+    with open(subject_dir + os.sep + 'stimuli.js', 'w') as f:
+        f.write(js_format)
+
+    end_text = f'''כל הכבוד! סיימתם את החלק הזה.'''
+    end_text_stim = visual.TextStim(win, text=end_text, pos=(0, -50), alignText='center', **TEXT_STIM_KWARGS)
+    end_text_stim.draw()
+    win.flip()
+    keys = event.waitKeys(keyList = ['space', 'enter', 'escape'])
     # Close the window
     win.close()
     core.quit()
