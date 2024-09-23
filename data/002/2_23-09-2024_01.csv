@@ -1,0 +1,277 @@
+"success","timeout","failed_images","failed_audio","failed_video","trial_type","trial_index","time_elapsed","internal_node_id","subject_id","rt","stimulus","response","part","triad_index","one_key","two_key","three_key","target1","target2","distractor","target1_rank","target2_rank","distractor_rank","target1_choice","target2_choice","distractor_choice","targets_diff","is_blank","actual_choice"
+"true","false","[]","[]","[]","preload","0","86","0.0-0.0","01","","","","","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","1","1619","0.0-1.0","01","1531","<p style=""text-align: center;"">מיד מתחילים.</p>","5","scan_wait","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","2","3626","0.0-2.0","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","3","4158","0.0-3.0-0.0","01","529","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","1","trinary","","distractor","target2","target1","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\Barackemaybe.png","0","5","30","88","66","20.5","5","null","distractor"
+"","","","","","html-keyboard-response","4","14014","0.0-3.0-1.0","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","5","16449","0.0-3.0-0.1","01","2433","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","2","trinary","","target2","distractor","target1","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\Tapuchips.PNG","0","9","10","88","61.5","61","9","null","distractor"
+"","","","","","html-keyboard-response","6","23591","0.0-3.0-1.1","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","7","27593","0.0-3.0-0.2","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\Barackemaybe.png","1","8","30","78.5","62","20.5","7","null",""
+"","","","","","html-keyboard-response","8","33998","0.0-3.0-1.2","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","9","35441","0.0-3.0-0.3","01","1441","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                    </p>","3","trinary","","target1","distractor","target2","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\Wissotzky.png","2","8","26","78.5","62","36","6","null","target2"
+"","","","","","html-keyboard-response","10","43630","0.0-3.0-1.3","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","11","44363","0.0-3.0-0.4","01","732","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                    </p>","2","trinary","","target1","target2","distractor","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\CocaCola2L.png","0","5","14","88","66","58.5","5","null","target2"
+"","","","","","html-keyboard-response","12","54815","0.0-3.0-1.4","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","13","59820","0.0-3.0-0.5","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\Tapuchips.PNG","3","4","10","72","68","61","1","null",""
+"","","","","","html-keyboard-response","14","66827","0.0-3.0-1.5","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","15","71817","0.0-3.0-0.6","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\Wissotzky.png","1","8","26","78.5","62","36","7","null",""
+"","","","","","html-keyboard-response","16","77823","0.0-3.0-1.6","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","17","82815","0.0-3.0-0.7","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\Tapuchips.PNG","0","5","10","88","66","61","5","null",""
+"","","","","","html-keyboard-response","18","88829","0.0-3.0-1.7","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","19","93830","0.0-3.0-0.8","01","null","<p class=""options"">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </p>","null","trinary","","","","","0","0","0","null","null","null","null","null","null","null","1",""
+"","","","","","html-keyboard-response","20","100835","0.0-3.0-1.8","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","21","105830","0.0-3.0-0.9","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\Tuna_ToGo.png","0","9","22","88","61.5","45.5","9","null",""
+"","","","","","html-keyboard-response","22","143820","0.0-3.0-1.9","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","23","203818","0.0-3.0-0.10","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\Wissotzky.png","3","4","26","72","68","36","1","null",""
+"","","","","","html-keyboard-response","24","229835","0.0-3.0-1.10","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","25","234817","0.0-3.0-0.11","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\CocaCola2L.png","0","9","14","88","61.5","58.5","9","null",""
+"","","","","","html-keyboard-response","26","240997","0.0-3.0-1.11","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","27","245013","0.0-3.0-0.12","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\CocaCola2L.png","3","4","14","72","68","58.5","1","null",""
+"","","","","","html-keyboard-response","28","251275","0.0-3.0-1.12","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","29","255281","0.0-3.0-0.13","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\CocaCola2L.png","2","8","14","78.5","62","58.5","6","null",""
+"","","","","","html-keyboard-response","30","260945","0.0-3.0-1.13","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","31","264950","0.0-3.0-0.14","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","target2","distractor","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\Tuna_ToGo.png","1","8","22","78.5","62","45.5","7","null",""
+"","","","","","html-keyboard-response","32","271006","0.0-3.0-1.14","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","33","275018","0.0-3.0-0.15","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","target2","distractor","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\KifKef.PNG","1","8","18","78.5","62","54.5","7","null",""
+"","","","","","html-keyboard-response","34","281143","0.0-3.0-1.15","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","35","285155","0.0-3.0-0.16","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\Wissotzky.png","0","9","26","88","61.5","36","9","null",""
+"","","","","","html-keyboard-response","36","291564","0.0-3.0-1.16","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","37","295570","0.0-3.0-0.17","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\KifKef.PNG","0","5","18","88","66","54.5","5","null",""
+"","","","","","html-keyboard-response","38","301663","0.0-3.0-1.17","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","39","305669","0.0-3.0-0.18","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\Barackemaybe.png","0","9","30","88","61.5","20.5","9","null",""
+"","","","","","html-keyboard-response","40","311309","0.0-3.0-1.18","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","41","315318","0.0-3.0-0.19","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target1","target2","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\KifKef.PNG","3","4","18","72","68","54.5","1","null",""
+"","","","","","html-keyboard-response","42","321394","0.0-3.0-1.19","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","43","325407","0.0-3.0-0.20","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\KifKef.PNG","2","8","18","78.5","62","54.5","6","null",""
+"","","","","","html-keyboard-response","44","331397","0.0-3.0-1.20","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","45","335820","0.0-3.0-0.21","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\GelDeLin.png', width=""148.94217207334273"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","target1","distractor","stimuli\Branflakesextra.png","stimuli\GelDeLin.png","stimuli\KifKef.PNG","0","9","18","88","61.5","54.5","9","null",""
+"","","","","","html-keyboard-response","46","342829","0.0-3.0-1.21","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","47","347827","0.0-3.0-0.22","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\CocaCola2L.png","3","6","14","72","65.5","58.5","3","null",""
+"","","","","","html-keyboard-response","48","353822","0.0-3.0-1.22","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","49","358828","0.0-3.0-0.23","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\Tuna_ToGo.png","3","6","22","72","65.5","45.5","3","null",""
+"","","","","","html-keyboard-response","50","364823","0.0-3.0-1.23","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","51","369826","0.0-3.0-0.24","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                    </p>","null","trinary","","distractor","target1","target2","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\CocaCola2L.png","1","8","14","78.5","62","58.5","7","null",""
+"","","","","","html-keyboard-response","52","376825","0.0-3.0-1.24","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","53","381823","0.0-3.0-0.25","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","target2","distractor","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\KifKef.PNG","3","6","18","72","65.5","54.5","3","null",""
+"","","","","","html-keyboard-response","54","387830","0.0-3.0-1.25","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","55","392819","0.0-3.0-0.26","01","null","<p class=""options"">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </p>","null","trinary","","","","","0","0","0","null","null","null","null","null","null","null","1",""
+"","","","","","html-keyboard-response","56","443831","0.0-3.0-1.26","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","57","503826","0.0-3.0-0.27","01","null","<p class=""options"">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </p>","null","trinary","","","","","0","0","0","null","null","null","null","null","null","null","1",""
+"","","","","","html-keyboard-response","58","563815","0.0-3.0-1.27","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","59","623821","0.0-3.0-0.28","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                    </p>","null","trinary","","target2","target1","distractor","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\Barackemaybe.png","3","6","30","72","65.5","20.5","3","null",""
+"","","","","","html-keyboard-response","60","683815","0.0-3.0-1.28","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","61","743824","0.0-3.0-0.29","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\Wissotzky.png","0","5","26","88","66","36","5","null",""
+"","","","","","html-keyboard-response","62","803815","0.0-3.0-1.29","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","63","863822","0.0-3.0-0.30","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\Tuna_ToGo.png","3","4","22","72","68","45.5","1","null",""
+"","","","","","html-keyboard-response","64","923824","0.0-3.0-1.30","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","65","983828","0.0-3.0-0.31","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","distractor","target2","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\Tapuchips.PNG","3","6","10","72","65.5","61","3","null",""
+"","","","","","html-keyboard-response","66","1043823","0.0-3.0-1.31","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","67","1103824","0.0-3.0-0.32","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                    </p>","null","trinary","","distractor","target1","target2","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\Barackemaybe.png","2","8","30","78.5","62","20.5","6","null",""
+"","","","","","html-keyboard-response","68","1163826","0.0-3.0-1.32","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","69","1223818","0.0-3.0-0.33","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Barackemaybe.png', width=""300"", height=""157.0212765957447""></span></span>
+                      <span><span><img src='stimuli\ChocolateSpread.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Kikkoman.png","stimuli\ChocolateSpread.png","stimuli\Barackemaybe.png","3","4","30","72","68","20.5","1","null",""
+"","","","","","html-keyboard-response","70","1283828","0.0-3.0-1.33","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","71","1343821","0.0-3.0-0.34","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\FuseTeaGreen.png', width=""123.39331619537275"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>","null","trinary","","target2","distractor","target1","stimuli\Branflakesextra.png","stimuli\FuseTeaGreen.png","stimuli\Tuna_ToGo.png","0","5","22","88","66","45.5","5","null",""
+"","","","","","html-keyboard-response","72","1403816","0.0-3.0-1.34","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","73","1463818","0.0-3.0-0.35","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Wissotzky.png', width=""189.69072164948454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Splendid.PNG', width=""174.19354838709677"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target1","target2","stimuli\Kikkoman.png","stimuli\Splendid.PNG","stimuli\Wissotzky.png","3","6","26","72","65.5","36","3","null",""
+"","","","","","html-keyboard-response","74","1523827","0.0-3.0-1.35","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","75","1583815","0.0-3.0-0.36","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\Sano99.png', width=""287.6470588235294"", height=""300""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Sano99.png","stimuli\Zipperbigbag.png","stimuli\Tapuchips.PNG","1","8","10","78.5","62","61","7","null",""
+"","","","","","html-keyboard-response","76","2762758","0.0-3.0-1.36","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","77","2767016","0.0-3.0-0.37","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tapuchips.PNG', width=""229.65328467153284"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                    </p>","null","trinary","","distractor","target2","target1","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\Tapuchips.PNG","2","8","10","78.5","62","61","6","null",""
+"","","","","","html-keyboard-response","78","2773812","0.0-3.0-1.37","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","79","2778815","0.0-3.0-0.38","01","null","
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Zipperbigbag.png', width=""300"", height=""104.73372781065088""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                    </p>","null","trinary","","target1","target2","distractor","stimuli\Fitness_Chocolate.png","stimuli\Zipperbigbag.png","stimuli\Tuna_ToGo.png","2","8","22","78.5","62","45.5","6","null",""
+"","","","","","html-keyboard-response","80","2785813","0.0-3.0-1.38","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","81","2788816","0.0-4.0","01","null","<p style=""text-align: center;"">+</p>","null","fixation","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","82","2789814","0.0-5.0","01","null","","null","delay","","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","83","3301798","0.0-6.0","01","511985","<p>בלוק נגמר.</p>"," ","manual_scan_wait","","","","","","","","","","","","","","","",""

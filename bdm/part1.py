@@ -108,7 +108,7 @@ def display_slider(mouse, win, slider, product, instructions=None, delay=True, i
             min_mouse_pos = reverse_normalize_mouse_loc(mouse_loc)
             mouse.setPos((min_mouse_pos, 0))
         # draw mouse location
-        choice_text = f"מוכנים לשלם: ₪{mouse_loc}"
+        choice_text = f"מוכנים לשלם: {mouse_loc}"
         choice_pos = slider.pos + (0, 50)
         choice_stim = visual.TextStim(win, text=choice_text, height=0.8*TEXT_SIZE, pos=choice_pos, color=TEXT_COLOR, languageStyle='RTL', font=FONT)
         choice_stim.draw()
@@ -376,7 +376,7 @@ if __name__=='__main__':
     # load data and parameters
     TEXT_SIZE = 60
     SLIDER_WIDTH = 600
-    blocks = 2
+    blocks = 3
     if _thisDir[-3:]=='bdm':
         stimuli_files = glob.glob('../stimuli/*.png')
         # go one dir up
@@ -406,7 +406,7 @@ if __name__=='__main__':
     product = visual.ImageStim(win, pos=slider.pos+(0, 250))
     CLOCK.reset()
     
-    for block_i in range(2):
+    for block_i in range(blocks):
         display_fixation(win, initial=True)
         core.wait(0.7)
         # present block start screen
@@ -521,12 +521,20 @@ if __name__=='__main__':
             stimuli_triad = pd.DataFrame({  'target1': target1, 'target2': target2, 'distractor': distractor, 
                                             'target1_rank': target1_rank, 'target2_rank': target2_rank, 'distractor_rank': distractor_rank,
                                             'target1_choice': target1_choice, 'target2_choice': target2_choice, 'distractor_choice': distractor_choice,
-                                            'targets_diff': diff}, index=[distractor_i])
+                                            'targets_diff': diff, 'is_blank': 0}, index=[distractor_i])
             fmri_stimuli_df = pd.concat([fmri_stimuli_df, stimuli_triad], ignore_index=True)
-    fmri_stimuli_df.to_csv(filename+'_fMRI.csv', index=False)
+    # create 3 blank stimuli
+    blank_stimuli = pd.DataFrame({'target1': np.zeros(3), 
+                                  'target2': np.zeros(3), 
+                                  'distractor': np.zeros(3), 
+                                  'is_blank': np.ones(3)}, index=[0, 1, 2])
+    # add blank stimuli to fMRI stimuli
+    fmri_stimuli_df = pd.concat([fmri_stimuli_df, blank_stimuli], ignore_index=True)
+    # save csv
+    fmri_stimuli_df.to_csv(filename+'_BDM.csv', index=False)
     # write to json and turn to js for the next part
     json_format = fmri_stimuli_df.to_json(orient='records')
-    js_format = f'var image_stimuli = [{json_format}]'.replace('\\\\', '\\')
+    js_format = f'var image_stimuli = {json_format}'
     # write js
     with open(subject_dir + os.sep + 'stimuli.js', 'w') as f:
         f.write(js_format)

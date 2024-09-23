@@ -131,13 +131,21 @@ var jsPsychHtmlKeyboardResponse = (function (jspsych) {
           };
           // start the response listener
           if (trial.choices != "NO_KEYS") {
-              var keyboardListener = this.jsPsych.pluginAPI.getKeyboardResponse({
-                  callback_function: after_response,
-                  valid_responses: trial.choices,
-                  rt_method: "performance",
-                  persist: false,
-                  allow_held_key: false,
-              });
+            // if stimulus is empty (blank trial), dont listen to response
+            if (trial.stimulus == ''){
+                this.jsPsych.pluginAPI.setTimeout(() => {
+                    display_element.querySelector("#jspsych-html-keyboard-response-stimulus").style.visibility = "hidden";
+                }, trial.stimulus_duration);
+            }
+            else {
+                var keyboardListener = this.jsPsych.pluginAPI.getKeyboardResponse({
+                    callback_function: after_response,
+                    valid_responses: trial.choices,
+                    rt_method: "performance",
+                    persist: false,
+                    allow_held_key: false,
+                });
+            }
           }
           // hide stimulus if stimulus_duration is set
           if (trial.stimulus_duration !== null) {

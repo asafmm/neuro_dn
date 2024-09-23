@@ -12,9 +12,9 @@ h1.rtl{
 }
 p {
     text-align: right;
-    line-height: 40px;
+    line-height: 65px;
     margin-bottom: 28px;
-    font-size: 25px;    
+    font-size: 52px;    
     direction: rtl;
 }
 /* p {
