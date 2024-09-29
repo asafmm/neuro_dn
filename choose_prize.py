@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 import random
-import scipy
-import glob
-import matplotlib.pyplot as plt
 from tkinter.filedialog import askopenfilenames
 
 # read files from dialog
@@ -44,7 +41,7 @@ if part==1:
     print(f'You chose to pay maximum of: ₪{chosen_payment}')
     computer_random_price = random.randint(1, 10)
     print(f'The computer set the price of ₪{computer_random_price}')
-    if computer_random_price > chosen_response:
+    if computer_random_price > chosen_payment:
         # price higher than response
         print('The price is higher than you offered, you get the full budget of ₪10.')
     else:

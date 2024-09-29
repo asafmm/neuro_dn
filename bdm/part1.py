@@ -15,6 +15,7 @@ TEXT_COLOR = "#D5D5D5"
 BACKGROUND_COLOR = "#1C1C1C"
 FONT = 'Arial'
 MAX_WTP = 100
+MAX_PRICE = MAX_WTP / 10
 N_TRIALS = 3
 TEXT_SIZE = 40
 SLIDER_WIDTH = 500
@@ -237,9 +238,9 @@ if __name__=='__main__':
                                                 color=TEXT_COLOR, languageStyle='RTL', font=FONT, alignText='center', bold=True)
     instruction_2_text = '''בקרוב יוצגו בפניכם מוצרים, אחד אחרי השני.
 עליכם לבחור את המחיר המירבי שתהיו מוכנים לשלם על המוצר.
-יש לכם תקציב של ₪100 לכל מוצר. 
+יש לכם תקציב של 100 טוקנים לכל מוצר. 
 
-נסו להעריך כל מוצר בנפרד ולחשוב כמה הוא שווה עבורכם. ₪100 זמינים לכל מוצר בנפרד.
+נסו להעריך כל מוצר בנפרד ולחשוב כמה הוא שווה עבורכם. 100 טוקנים זמינים לכל מוצר בנפרד.
 
 לחצו על העכבר כדי להמשיך.'''
     instruction_2_stim = visual.TextStim(win, text=instruction_2_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
@@ -247,6 +248,7 @@ if __name__=='__main__':
     core.wait(0.7)
 
     instruction_3_text = '''בסוף הניסוי, המחשב יבחר את אחד המוצרים ויקבע מחיר עבורו.
+    בנוסף, הוא ימיר את המחיר שבחרתם בטוקנים לשקלים ע"י חלוקה ב10.
 
 אם המחיר שבחרתם נמוך מהמחיר שנקבע על ידי המחשב, 
 לא תקבלו את המוצר ותישארו עם כל התקציב.
@@ -260,20 +262,21 @@ if __name__=='__main__':
 
     # BDM example 1
     example_1_text = f'''נתחיל עם דוגמא:
-מה המחיר המירבי שתהיו מוכנים לשלם על המוצר הזה בין 0 ל-₪{MAX_WTP}?
+מה המחיר המירבי שתהיו מוכנים לשלם על המוצר הזה בין 0 ל-{MAX_WTP}?
 הזיזו את העכבר על פני המלבן ולחצו כדי לבצע בחירה.'''
     example_1_stim = visual.TextStim(win, text=example_1_text, pos=(0, 150), alignText='right', **TEXT_STIM_KWARGS)
-    # example_amount = visual.TextStim(win, text=f"₪40", height=TEXT_SIZE, pos=slider_example1.pos+(0, 150), color=TEXT_COLOR)
+    # example_amount = visual.TextStim(win, text=f"40", height=TEXT_SIZE, pos=slider_example1.pos+(0, 150), color=TEXT_COLOR)
     # example_prob = visual.TextStim(win, text=f"65%", height=TEXT_SIZE, pos=slider_example1.pos+(0, 100), color=TEXT_COLOR)
     example_product = visual.ImageStim(win, pos=slider_example1.pos+(0, 250))
     event.Mouse(visible=False)
     example_product_1 = create_product_object(example_product, 'stimuli/example/example1.png')
     trial_data_dict = display_slider(mouse, win, slider_example1, example_product_1, example_1_stim, is_demo_trial=True, delay=False)
     example_1_choice = trial_data_dict['choice']
+    example_1_choice_payment = example_1_choice / 10
     core.wait(0.7)
     ##
     example_1_feedback_text = f'''יפה מאוד!
-בחרתם שתהיו מוכנים לשלם ₪{example_1_choice} עבור המוצר. נשמע נכון?
+בחרתם שתהיו מוכנים לשלם {example_1_choice} טוקנים עבור המוצר. נשמע נכון?
 
 כעת נניח שהמוצרה הזה נבחר בסוף הניסוי.
 המחשב יקבע עבורו מחיר באקראי.
@@ -283,18 +286,18 @@ if __name__=='__main__':
     display_instructions(mouse, win, example_1_feedback_stim)
     core.wait(0.7)
     ##
-    random_price = random.randint(0, example_1_choice)
+    random_price = random.randint(0, int(example_1_choice_payment))
 
-    if random_price == example_1_choice:
+    if random_price == example_1_choice_payment:
         example_1_lower_or_equal = f'''המחיר שנקבע זהה לזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותקבלו את המוצר.'''
     else:
         example_1_lower_or_equal = f'''המחיר שנקבע נמוך מזה שבחרתם, אז תשלמו את המחיר שקבע המחשב (₪{random_price}) ותקבלו את המוצר.'''
 
     example_1_price_text = f'''המחשב קבע מחיר: ₪{random_price}
-ואתם בחרתם לשלם לכל היותר: ₪{example_1_choice}
+ואתם בחרתם לשלם לכל היותר: ₪{example_1_choice_payment}
 
 ''' + example_1_lower_or_equal + f'''
-במקרה כזה, תסיימו את הניסוי עם תקציב של ₪{MAX_WTP - random_price} ועם המוצר.
+במקרה כזה, תסיימו את הניסוי עם תקציב של ₪{MAX_PRICE - random_price} ועם המוצר.
 
 לחצו על העכבר להמשך.'''
     example_1_price_stim = visual.TextStim(win, text=example_1_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
@@ -308,26 +311,39 @@ if __name__=='__main__':
     example_product_2 = create_product_object(example_product_2, 'stimuli/example/example2.png')
     trial_data_dict = display_slider(mouse, win, slider_example2, example_product_2,  example_2_stim, is_demo_trial=True, delay=False)
     example_2_choice = trial_data_dict['choice']
+    example_2_choice_payment = example_2_choice / 10
     core.wait(0.7)
     ##
-    example_2_feedback_text = f'''בחרתם שתהיו מוכנים לשלם ₪{example_2_choice} עבור המוצר.
+    example_2_feedback_text = f'''בחרתם שתהיו מוכנים לשלם {example_2_choice} טוקנים עבור המוצר.
 
 נניח שהמוצר הזה נבחר בסוף הניסוי.
-כעת המחשב יקבע עבורו מחיר באקראי.
+כעת המחשב יקבע עבורו מחיר באקראי וימיר את הטוקנים לשקלים.
+המספר בטוקנים מחולק ב-10.
 
 לחצו על העכבר להמשך.'''
     example_2_feedback_stim = visual.TextStim(win, text=example_2_feedback_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
     display_instructions(mouse, win, example_2_feedback_stim)
     core.wait(0.7)
     ##
-    random_price = random.randint(example_2_choice+1, MAX_WTP)
-    example_2_price_text = f'''המחשב קבע מחיר: ₪{random_price}
-ואתם בחרתם לשלם לכל היותר: ₪{example_2_choice}
+    if example_2_choice < MAX_WTP:
+        random_price = random.randint(int(example_2_choice_payment), MAX_PRICE)
+        example_2_price_text = f'''המחשב קבע מחיר: ₪{random_price}
+ואתם בחרתם לשלם לכל היותר: ₪{example_2_choice_payment}
 
 מכיוון שהמחיר שבחרתם נמוך מהמחיר שנקבע, לא תקבלו את המוצר.
-במקרה כזה, בסוף הניסוי תקבלו את כל התקציב ההתחלתי של ₪{MAX_WTP}.
+במקרה כזה, בסוף הניסוי תקבלו את כל התקציב ההתחלתי של ₪{MAX_PRICE}.
 
 לחצו על העכבר להמשך.'''
+    if example_2_choice == MAX_WTP:
+        random_price = MAX_PRICE
+        example_2_price_text = f'''המחשב קבע מחיר: ₪{random_price}
+ואתם בחרתם לשלם לכל היותר: ₪{example_2_choice_payment}
+
+מכיוון שהמחיר שבחרתם זהה למחיר שנקבע, אז תשלמו את המחיר ותקבלו את המוצר.
+במקרה זה, שילמתם את כל התקציב ולכן לא תשארו עם כסף בנוסף למוצר.
+
+לחצו על העכבר להמשך.'''
+    
     example_2_price_stim = visual.TextStim(win, text=example_2_price_text, pos=(0, -50), alignText='right', **TEXT_STIM_KWARGS)
     display_instructions(mouse, win, example_2_price_stim)
     core.wait(0.7) 
@@ -363,7 +379,7 @@ if __name__=='__main__':
 
 כעת נתחיל את הניסוי.
 אתם תראו מוצרים ותתבקשו לבחור כמה תהיו מוכנים לשלם עבורם.
-יש לכם תקציב של ₪{MAX_WTP} עבור כל מוצר.
+יש לכם תקציב של{MAX_WTP} טוקנים עבור כל מוצר.
 בסוף הניסוי מוצר אחד ייבחר באקראי.
 
 לחצו על העכבר כדי להתחיל את הניסוי.'''
