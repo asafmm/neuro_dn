@@ -1,0 +1,265 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,time_elapsed,internal_node_id,subject_id,rt,stimulus,response,part,triad_index,one_key,two_key,three_key,target1,target2,distractor,target1_rank,target2_rank,distractor_rank,target1_choice,target2_choice,distractor_choice,targets_diff,is_blank,actual_choice,,FALSE
+TRUE,FALSE,[],[],[],preload,0,33,0.0-0.0,104,,,,,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,1,19070,0.0-1.0,104,19037,"<p style=""text-align: center;"">מיד מתחילים.</p>",5,scan_wait,,,,,,,,,,,,,,,,,,FALSE
+,,,,,html-keyboard-response,2,21078,0.0-2.0,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,3,22321,0.0-3.0-0.0,104,1237,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>",3,trinary,,distractor,target2,target1,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\Cafeelite.png,5,8,15,76.66666667,69.66666667,54,3,0,target1,,FALSE
+,,,,,html-keyboard-response,4,30672,0.0-3.0-1.0,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,5,34684,0.0-3.0-0.1,104,null,,null,trinary,,,,,0,0,0,null,null,null,null,null,null,null,1,,,FALSE
+,,,,,html-keyboard-response,6,40444,0.0-3.0-1.1,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,7,41213,0.0-3.0-0.2,104,763,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                    </p>",2,trinary,,target1,target2,distractor,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\Zippersmallbag.png,1,7,27,89.66666667,70,29,6,0,target2,,FALSE
+,,,,,html-keyboard-response,8,50200,0.0-3.0-1.2,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,9,51557,0.0-3.0-0.3,104,1352,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                    </p>",1,trinary,,target2,target1,distractor,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\Oreo.PNG,3,4,11,83.33333333,78.66666667,61.66666667,1,0,target2,,FALSE
+,,,,,html-keyboard-response,10,60464,0.0-3.0-1.3,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,11,61699,0.0-3.0-0.4,104,1229,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                    </p>",3,trinary,,target2,distractor,target1,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\Fitness_Chocolate.png,3,8,19,83.33333333,69.66666667,48,5,0,target1,,FALSE
+,,,,,html-keyboard-response,12,70765,0.0-3.0-1.4,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,13,71554,0.0-3.0-0.5,104,783,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\Smarties.PNG,1,7,31,89.66666667,70,12.33333333,6,0,target2,,FALSE
+,,,,,html-keyboard-response,14,80864,0.0-3.0-1.5,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,15,84879,0.0-3.0-0.6,104,null,,null,trinary,,,,,0,0,0,null,null,null,null,null,null,null,1,,,FALSE
+,,,,,html-keyboard-response,16,90833,0.0-3.0-1.6,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,17,91551,0.0-3.0-0.7,104,712,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\Cafeelite.png,1,7,15,89.66666667,70,54,6,0,target2,,FALSE
+,,,,,html-keyboard-response,18,100950,0.0-3.0-1.7,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,19,101578,0.0-3.0-0.8,104,624,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\Fitness_Chocolate.png,1,7,19,89.66666667,70,48,6,0,target2,,FALSE
+,,,,,html-keyboard-response,20,110939,0.0-3.0-1.8,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,21,111883,0.0-3.0-0.9,104,936,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",3,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\Zippersmallbag.png,1,10,27,89.66666667,67.66666667,29,9,0,target1,,FALSE
+,,,,,html-keyboard-response,22,121283,0.0-3.0-1.9,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,23,122420,0.0-3.0-0.10,104,1130,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                    </p>",3,trinary,,target1,distractor,target2,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\Zippersmallbag.png,3,4,27,83.33333333,78.66666667,29,1,0,target2,,FALSE
+,,,,,html-keyboard-response,24,131320,0.0-3.0-1.10,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,25,132893,0.0-3.0-0.11,104,1567,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                    </p>",1,trinary,,target1,target2,distractor,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\KifKef.PNG,1,10,23,89.66666667,67.66666667,33.66666667,9,0,target1,,FALSE
+,,,,,html-keyboard-response,26,141178,0.0-3.0-1.11,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,27,142072,0.0-3.0-0.12,104,887,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",1,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\Oreo.PNG,1,10,11,89.66666667,67.66666667,61.66666667,9,0,distractor,,FALSE
+,,,,,html-keyboard-response,28,151615,0.0-3.0-1.12,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,29,153645,0.0-3.0-0.13,104,2023,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                    </p>",2,trinary,,distractor,target1,target2,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\Fitness_Chocolate.png,1,10,19,89.66666667,67.66666667,48,9,0,target1,,FALSE
+,,,,,html-keyboard-response,30,161310,0.0-3.0-1.13,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,31,162640,0.0-3.0-0.14,104,1325,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                    </p>",1,trinary,,target2,target1,distractor,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\KifKef.PNG,3,4,23,83.33333333,78.66666667,33.66666667,1,0,target2,,FALSE
+,,,,,html-keyboard-response,32,171223,0.0-3.0-1.14,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,33,172186,0.0-3.0-0.15,104,956,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\KifKef.PNG,1,7,23,89.66666667,70,33.66666667,6,0,target2,,FALSE
+,,,,,html-keyboard-response,34,181007,0.0-3.0-1.15,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,35,182056,0.0-3.0-0.16,104,1045,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                    </p>",3,trinary,,target1,distractor,target2,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\KifKef.PNG,2,9,23,88.33333333,68.66666667,33.66666667,7,0,target2,,FALSE
+,,,,,html-keyboard-response,36,190571,0.0-3.0-1.16,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,37,191596,0.0-3.0-0.17,104,1020,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                    </p>",1,trinary,,target1,target2,distractor,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\Cafeelite.png,3,4,15,83.33333333,78.66666667,54,1,0,target1,,FALSE
+,,,,,html-keyboard-response,38,200857,0.0-3.0-1.17,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,39,202307,0.0-3.0-0.18,104,1444,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>",1,trinary,,target1,distractor,target2,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\Cafeelite.png,3,8,15,83.33333333,69.66666667,54,5,0,target1,,FALSE
+,,,,,html-keyboard-response,40,210921,0.0-3.0-1.18,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,41,212435,0.0-3.0-0.19,104,1508,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>",3,trinary,,distractor,target2,target1,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\KifKef.PNG,5,8,23,76.66666667,69.66666667,33.66666667,3,0,target1,,FALSE
+,,,,,html-keyboard-response,42,221423,0.0-3.0-1.19,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,43,223411,0.0-3.0-0.20,104,1986,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                    </p>",2,trinary,,distractor,target1,target2,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\Smarties.PNG,1,10,31,89.66666667,67.66666667,12.33333333,9,0,target1,,FALSE
+,,,,,html-keyboard-response,44,231890,0.0-3.0-1.20,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,45,232881,0.0-3.0-0.21,104,985,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>",2,trinary,,target1,distractor,target2,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\Oreo.PNG,5,8,11,76.66666667,69.66666667,61.66666667,3,0,distractor,,FALSE
+,,,,,html-keyboard-response,46,242045,0.0-3.0-1.21,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,47,244165,0.0-3.0-0.22,104,2113,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                    </p>",2,trinary,,target1,target2,distractor,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\Oreo.PNG,2,9,11,88.33333333,68.66666667,61.66666667,7,0,target2,,FALSE
+,,,,,html-keyboard-response,48,252388,0.0-3.0-1.22,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,49,253404,0.0-3.0-0.23,104,1009,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>",1,trinary,,target1,distractor,target2,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\Zippersmallbag.png,3,8,27,83.33333333,69.66666667,29,5,0,target1,,FALSE
+,,,,,html-keyboard-response,50,262181,0.0-3.0-1.23,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,51,263470,0.0-3.0-0.24,104,1285,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target1,target2,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\Fitness_Chocolate.png,5,8,19,76.66666667,69.66666667,48,3,0,target1,,FALSE
+,,,,,html-keyboard-response,52,272339,0.0-3.0-1.24,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,53,273327,0.0-3.0-0.25,104,981,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                    </p>",2,trinary,,target2,target1,distractor,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\Smarties.PNG,5,8,31,76.66666667,69.66666667,12.33333333,3,0,target1,,FALSE
+,,,,,html-keyboard-response,54,282360,0.0-3.0-1.25,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,55,283232,0.0-3.0-0.26,104,866,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Branflakesextra.png', width=""300"", height=""300""></span></span>
+                    </p>",3,trinary,,distractor,target2,target1,stimuli\Branflakesextra.png,stimuli\Kikkoman.png,stimuli\Zippersmallbag.png,5,8,27,76.66666667,69.66666667,29,3,0,target1,,FALSE
+,,,,,html-keyboard-response,56,292857,0.0-3.0-1.26,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,57,296866,0.0-3.0-0.27,104,null,,null,trinary,,,,,0,0,0,null,null,null,null,null,null,null,1,,,FALSE
+,,,,,html-keyboard-response,58,303082,0.0-3.0-1.27,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,59,303888,0.0-3.0-0.28,104,802,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                    </p>",2,trinary,,target1,target2,distractor,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\Smarties.PNG,2,9,31,88.33333333,68.66666667,12.33333333,7,0,target2,,FALSE
+,,,,,html-keyboard-response,60,312628,0.0-3.0-1.28,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,61,313949,0.0-3.0-0.29,104,1316,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                    </p>",2,trinary,,target1,target2,distractor,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\Smarties.PNG,3,4,31,83.33333333,78.66666667,12.33333333,1,0,target2,,FALSE
+,,,,,html-keyboard-response,62,322813,0.0-3.0-1.29,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,63,323866,0.0-3.0-0.30,104,1047,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\KifKef.PNG', width=""238.02905874921038"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                    </p>",3,trinary,,distractor,target2,target1,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\KifKef.PNG,3,8,23,83.33333333,69.66666667,33.66666667,5,0,target1,,FALSE
+,,,,,html-keyboard-response,64,332778,0.0-3.0-1.30,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,65,333859,0.0-3.0-0.31,104,1078,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\CocaCola2L.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                    </p>",1,trinary,,target2,distractor,target1,stimuli\Branflakes.png,stimuli\CocaCola2L.png,stimuli\Oreo.PNG,1,7,11,89.66666667,70,61.66666667,6,0,target2,,FALSE
+,,,,,html-keyboard-response,66,342883,0.0-3.0-1.31,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,67,344131,0.0-3.0-0.32,104,1242,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Tuna_ToGo.png', width=""244.4063143445436"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Quakermaybe.png,stimuli\Tuna_ToGo.png,stimuli\Fitness_Chocolate.png,3,4,19,83.33333333,78.66666667,48,1,0,target2,,FALSE
+,,,,,html-keyboard-response,68,352659,0.0-3.0-1.32,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,69,353846,0.0-3.0-0.33,104,1181,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Fitness_Chocolate.png', width=""300"", height=""237.33239237826393""></span></span>
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target1,target2,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\Fitness_Chocolate.png,2,9,19,88.33333333,68.66666667,48,7,0,target1,,FALSE
+,,,,,html-keyboard-response,70,362530,0.0-3.0-1.33,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,71,363486,0.0-3.0-0.34,104,951,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                    </p>",2,trinary,,distractor,target2,target1,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\Cafeelite.png,2,9,15,88.33333333,68.66666667,54,7,0,target2,,FALSE
+,,,,,html-keyboard-response,72,372682,0.0-3.0-1.34,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,73,373576,0.0-3.0-0.35,104,889,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Smarties.PNG', width=""300"", height=""102.57214554579673""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                    </p>",2,trinary,,distractor,target1,target2,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\Smarties.PNG,3,8,31,83.33333333,69.66666667,12.33333333,5,0,target1,,FALSE
+,,,,,html-keyboard-response,74,382580,0.0-3.0-1.35,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,75,383881,0.0-3.0-0.36,104,1294,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\FuzeTea.png', width=""149.079754601227"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Filtunamaybe.png', width=""300"", height=""194.5""></span></span>
+                      <span><span><img src='stimuli\Zippersmallbag.png', width=""300"", height=""170.83854818523153""></span></span>
+                    </p>",2,trinary,,target2,target1,distractor,stimuli\Filtunamaybe.png,stimuli\FuzeTea.png,stimuli\Zippersmallbag.png,2,9,27,88.33333333,68.66666667,29,7,0,target1,,FALSE
+,,,,,html-keyboard-response,76,392570,0.0-3.0-1.36,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,77,395000,0.0-3.0-0.37,104,2425,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Branflakes.png', width=""219.87127916331454"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Cafeelite.png', width=""250.68846815834766"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Milka.PNG', width=""300"", height=""153.40710541642397""></span></span>
+                    </p>",1,trinary,,target1,distractor,target2,stimuli\Branflakes.png,stimuli\Milka.PNG,stimuli\Cafeelite.png,1,10,15,89.66666667,67.66666667,54,9,0,target1,,FALSE
+,,,,,html-keyboard-response,78,402923,0.0-3.0-1.37,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,79,403774,0.0-3.0-0.38,104,847,"
+                    <p class=""options"">
+                      <span><span><img src='stimuli\Kikkoman.png', width=""92.43604004449388"", height=""300""></span></span>
+                      <span><span><img src='stimuli\Oreo.PNG', width=""300"", height=""168.046875""></span></span>
+                      <span><span><img src='stimuli\Quakermaybe.png', width=""300"", height=""300""></span></span>
+                    </p>",2,trinary,,target2,distractor,target1,stimuli\Quakermaybe.png,stimuli\Kikkoman.png,stimuli\Oreo.PNG,3,8,11,83.33333333,69.66666667,61.66666667,5,0,distractor,,FALSE
+,,,,,html-keyboard-response,80,412866,0.0-3.0-1.38,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,81,414868,0.0-4.0,104,null,"<p style=""text-align: center;"">+</p>",null,fixation,,,,,,,,,,,,,,,,,,FALSE
+,,,,,html-keyboard-response,82,415583,0.0-5.0,104,null,,null,delay,,,,,,,,,,,,,,,,,,TRUE
+,,,,,html-keyboard-response,83,429284,0.0-6.0,104,13700,<p>בלוק נגמר.</p>, ,manual_scan_wait,,,,,,,,,,,,,,,,,,FALSE
